@@ -1,4 +1,4 @@
-package model;
+package model.personajes;
 
 public abstract class Personaje {
 	private String nombre;

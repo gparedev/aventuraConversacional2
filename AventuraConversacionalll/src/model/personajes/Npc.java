@@ -1,4 +1,4 @@
-package model;
+package model.personajes;
 
 public class Npc extends Personaje {
 	

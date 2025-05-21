@@ -1,6 +1,7 @@
-package model;
+package model.personajes;
 
 import dao.DaoCombatiente;
+
 import java.sql.*;
 
 public abstract class Combatiente extends Personaje {

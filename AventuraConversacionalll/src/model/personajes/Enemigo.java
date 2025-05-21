@@ -1,4 +1,4 @@
-package model;
+package model.personajes;
 
 public class Enemigo extends Combatiente {
 	

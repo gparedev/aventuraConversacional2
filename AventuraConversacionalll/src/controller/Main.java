@@ -3,6 +3,7 @@ package controller;
 import java.sql.SQLException;
 
 import model.*;
+import model.personajes.Protagonista;
 
 public class Main {
 	
