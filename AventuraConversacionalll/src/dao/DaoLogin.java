@@ -20,6 +20,7 @@ public class DaoLogin {
 		return instance;
 	}
 
+	// login o registro
 	public void inicioDeSesionORegistro() throws SQLException {
 		System.out.println("Introduce tu nombre de usuario:");
 		String nombre = sc.nextLine().trim(); // trim() borra espacios de inicio y final del string
@@ -30,13 +31,31 @@ public class DaoLogin {
 			// el usuario no existe, crear cuenta
 			System.out.println("Usuario no encontrado.");
 			String contrasena = crearContrasena();
-			crearUsuario(nombre, contrasena);
+			registro(nombre, contrasena);
 		}
+	}
+
+	// comprobar si nombre de usuario está disponible
+	public boolean nombreDisponible(String usuarioIn) throws SQLException {
+		String query = "SELECT * FROM usuario WHERE nombre_usuario = ? LIMIT 1";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setString(1, usuarioIn);
+		ResultSet rSet = statement.executeQuery();
+		boolean disponible = !rSet.next();
+		// - rSet.next() devuelve true si hay resultados, false si no
+		// - entonces: disponible = !rSet.next()
+		// login:
+		// - si devuelve filas, hay un usuario con ese nombre: !true = false
+		// registro:
+		// - si no devuelve filas, no hay un usuario con ese nombre: !false = true
+		rSet.close();
+		statement.close();
+		return disponible;
 	}
 
 	// *** USUARIOS EXISTENTES ***
 
-	// login: verifica contraseña
+	// login
 	private void login(String usuarioIn) throws SQLException {
 		String contrasenaExistenteDeUsuario = obtenerContrasena(usuarioIn);
 
@@ -56,7 +75,7 @@ public class DaoLogin {
 		System.out.println("¡Bienvenido de nuevo, " + usuarioIn + "!");
 	}
 
-	// obtener contraseña de un usuario existente
+	// obtener contraseña de un usuario existente que está haciendo login
 	private String obtenerContrasena(String usuarioIn) throws SQLException {
 		String query = "SELECT contrasena_usuario FROM usuario WHERE nombre_usuario = ?";
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -75,20 +94,8 @@ public class DaoLogin {
 
 	// *** USUARIOS NUEVOS ***
 
-	// comprobar si nombre de usuario está disponible
-	public boolean nombreDisponible(String usuarioIn) throws SQLException {
-		String query = "SELECT * FROM usuario WHERE nombre_usuario = ? LIMIT 1";
-		PreparedStatement statement = conn.prepareStatement(query);
-		statement.setString(1, usuarioIn);
-		ResultSet rSet = statement.executeQuery();
-		boolean disponible = !rSet.next(); // true si no hay resultados
-		rSet.close();
-		statement.close();
-		return disponible;
-	}
-
 	// crear nuevo usuario en base de datos
-	public void crearUsuario(String usuarioIn, String contrasenaIn) throws SQLException {
+	public void registro(String usuarioIn, String contrasenaIn) throws SQLException {
 		String insertUsuario = "INSERT INTO usuario (nombre_usuario, contrasena_usuario) VALUES (?, ?)";
 		PreparedStatement statement = conn.prepareStatement(insertUsuario);
 		statement.setString(1, usuarioIn);
