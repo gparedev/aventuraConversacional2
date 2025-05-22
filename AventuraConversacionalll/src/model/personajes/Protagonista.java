@@ -11,6 +11,7 @@ public class Protagonista extends Combatiente {
     
     public void imprimirInfo() {
     	System.out.println(getNombre());
+    	System.out.println(getAtaques().get(0).getNombre());
     }
     
     

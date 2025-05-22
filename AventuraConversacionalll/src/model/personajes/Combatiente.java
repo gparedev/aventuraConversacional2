@@ -1,7 +1,5 @@
 package model.personajes;
 
-import dao.DaoCombatiente;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -106,11 +104,6 @@ public abstract class Combatiente extends Personaje {
 		
 		// Resetear ataque
 		ataque = 0;
-	}
-
-	
-	public String imprimirAtaqueDebil () throws SQLException {
-		return DaoCombatiente.getInstance().selectAttack();
 	}
 	
 //	public abstract void turno();

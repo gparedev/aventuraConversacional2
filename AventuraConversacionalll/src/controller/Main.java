@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.SQLException;
 
+import dao.DaoEnemigo;
 import dao.DaoProtagonista;
 import model.personajes.*;
 
@@ -13,6 +14,10 @@ public class Main {
 		Protagonista p1 = DaoProtagonista.getInstance().generarProtagonista(1);
 		
 		p1.imprimirInfo();
+		
+		Enemigo e1 = DaoEnemigo.getInstance().generarEnemigo(1);
+		
+		e1.imprimirInfo();
 		
 	}
 }
