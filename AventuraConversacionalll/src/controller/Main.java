@@ -9,7 +9,5 @@ public class Main {
 		
 //		GameManager gm = new GameManager();
 //		gm.start();
-//		MiniJuegoStart minijuego = new MiniJuegoStart();
-//		minijuego.start();
 	}
 }

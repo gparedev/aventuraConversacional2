@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Juego1 {
 
+	// PIEDRA, PAPEL O TIJERA
+
 	// ATRIBUTOS
 	int victorias = 0;
 	int derrotas = 0;
@@ -21,9 +23,7 @@ public class Juego1 {
 
 	// FUNCIONES
 
-	public void juego1Start() {
-		// Frase inicio juego
-		this.imprimir(this.frase(0));
+	public void juegoStart() {
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
@@ -45,6 +45,7 @@ public class Juego1 {
 	}
 
 	private void tramaJuego() {
+		this.imprimir(this.frase(0));
 		while (this.victorias < 2 && this.derrotas < 2) {
 			Scanner sc = new Scanner(System.in);
 			int myChoice;
@@ -64,6 +65,7 @@ public class Juego1 {
 			// Resolución de ronda
 			this.ronda(myChoice, enemyChoice);
 		}
+		
 	}
 
 	private void imprimirOpciones() {

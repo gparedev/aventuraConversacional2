@@ -32,19 +32,23 @@ public class MiniJuegoStart {
 		switch (numJuego){
 		case 1:
 			Juego1 juego1 = new Juego1();
-			juego1.juego1Start();
+			juego1.juegoStart();
 			break;
 		case 2:
-			
+			Juego2 juego2 = new Juego2();
+			juego2.juegoStart();
 			break;
 		case 3:
-			
+			Juego3 juego3 = new Juego3();
+			juego3.juegoStart();
 			break;
 		case 4:
-			
+			Juego4 juego4 = new Juego4();
+			juego4.juegoStart();
 			break;
 		case 5:
-			
+			Juego5 juego5 = new Juego5();
+			juego5.juegoStart();
 			break;
 		}
 	}
