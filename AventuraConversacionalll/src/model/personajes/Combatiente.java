@@ -3,6 +3,7 @@ package model.personajes;
 import dao.DaoCombatiente;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public abstract class Combatiente extends Personaje {
 
@@ -10,8 +11,6 @@ public abstract class Combatiente extends Personaje {
 	private int vidaMax;
 	private int ataque;
 	private int defensa;
-	
-	private String attackName = null;
 
 	private int pocionAtaque;
 	private int pocionVida;
@@ -19,6 +18,8 @@ public abstract class Combatiente extends Personaje {
 	private boolean pocionVidaUsada = false;
 
 	private final int VALOR_POCIONES = 25;
+	
+	private ArrayList<Ataque> ataques;
 
 	public Combatiente(String nombre, int vidaMax, int ataque, int pocionVida, int pocionAtaque) {
 		super(nombre);
@@ -45,14 +46,6 @@ public abstract class Combatiente extends Personaje {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
-	
-	public String getAttackName() {
-		return attackName;
-	}
-
-	public void setAttackName(String attackName) {
-		this.attackName = attackName;
-	}
 
 	public int getAtaque() {
 		return ataque;
@@ -60,6 +53,14 @@ public abstract class Combatiente extends Personaje {
 
 	public void setAtaque(int ataque) {
 		this.ataque = ataque;
+	}
+
+	public ArrayList<Ataque> getAtaques() {
+		return ataques;
+	}
+
+	public void setAtaques(ArrayList<Ataque> ataques) {
+		this.ataques = ataques;
 	}
 
 	// POCIONES
@@ -98,8 +99,7 @@ public abstract class Combatiente extends Personaje {
 	// Lo mas sencillo creo que va a ser hacer la clase abstracta y que cada clase la implemente.
 	public void atacar(Combatiente enemy) {
 		if (enemy.getVida() > 0) {
-			// Comprobar qué ataque ha seleccionado...
-			comprobarTipoAtaque();
+			
 			int dmg = ataque - enemy.getDefensa();
 			enemy.setVida(enemy.getVida() - dmg);
 		}
@@ -108,21 +108,11 @@ public abstract class Combatiente extends Personaje {
 		ataque = 0;
 	}
 
-	public void comprobarTipoAtaque() {
-		// Consulta base de datos de ataque debil
-		if (attackName.equalsIgnoreCase("0")) {
-			ataque += 5;
-		// Ataque Medio
-		} else if(attackName.equalsIgnoreCase("1")) {
-			
-		//Ataque fuerte
-		} else {
-				
-		}
-	}
 	
 	public String imprimirAtaqueDebil () throws SQLException {
 		return DaoCombatiente.getInstance().selectAttack();
 	}
+	
+//	public abstract void turno();
 
 }

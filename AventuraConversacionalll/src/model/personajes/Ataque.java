@@ -4,14 +4,16 @@ public class Ataque {
 	private String nombre;
 	private int dmg;
 	private String tipo;
+	private int precision;
 	
-    public Ataque(String nombre, int dmg, String tipo) {
+    public Ataque(String nombre, int dmg, String tipo, int precision) {
         this.nombre = nombre;
         this.dmg = dmg;
         this.tipo = tipo;
+        this.precision = precision;
     }
-    
-    public String getNombre() {
+
+	public String getNombre() {
     	return nombre;
     }
 
@@ -21,6 +23,10 @@ public class Ataque {
 
 	public String getTipo() {
 		return tipo;
+	}
+	
+    public int getPrecision() {
+		return precision;
 	}
     
     

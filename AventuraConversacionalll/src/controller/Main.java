@@ -2,18 +2,17 @@ package controller;
 
 import java.sql.SQLException;
 
-import model.*;
-import model.personajes.Protagonista;
+import dao.DaoProtagonista;
+import model.personajes.*;
 
 public class Main {
 	
 	public static void main(String[] args) throws SQLException {
 		
-		GameManager gm = new GameManager();
-		gm.start();
 		
-		Protagonista p = new Protagonista("Hola", 2, 2, 2, 2);
+		Protagonista p1 = DaoProtagonista.getInstance().generarProtagonista(1);
 		
-		System.out.println(p.imprimirAtaqueDebil());
+		p1.imprimirInfo();
+		
 	}
 }
