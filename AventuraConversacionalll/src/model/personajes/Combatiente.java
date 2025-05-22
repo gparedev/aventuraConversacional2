@@ -3,6 +3,7 @@ package model.personajes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Combatiente extends Personaje {
@@ -17,11 +18,16 @@ public abstract class Combatiente extends Personaje {
 	private boolean pocionAtaqueUsada = false;
 	private boolean pocionVidaUsada = false;
 
+	private Combatiente enemigo;
+
 	private final int VALOR_POCIONES = 25;
 
 	private ArrayList<Ataque> ataques;
 
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
+	
+	private Random rand = new Random();
+
 
 	public Combatiente(String nombre, int vidaMax, int ataque, int pocionVida, int pocionAtaque) {
 		super(nombre);
@@ -65,6 +71,14 @@ public abstract class Combatiente extends Personaje {
 		this.ataques = ataques;
 	}
 
+	public Combatiente getEnemigo() {
+		return enemigo;
+	}
+
+	public void setEnemigo(Combatiente enemigo) {
+		this.enemigo = enemigo;
+	}
+
 	// POCIONES
 	public void usarPocionVida() {
 		int valorCura;
@@ -100,111 +114,98 @@ public abstract class Combatiente extends Personaje {
 	// Select TipoAtaque de las tablas
 	// Lo mas sencillo creo que va a ser hacer la clase abstracta y que cada clase
 	// la implemente.
-	public void atacar(Combatiente enemy) {
+	public void atacar(Combatiente enemy, Ataque ataque) {
 		int dmg = 0;
 		if (enemy.getVida() > 0) {
-
-			// Hacer un switch y una funcion que devuelva un entero en valor del String
-			// debil, medio...
-			switch (checkTipoAtaque()) {
-			case 1:
-
+			// Saca numero aleatorio entre 1 y 100.
+			int tirada = rand.nextInt(100 + 1);
+			
+			// Si Aciertas el ataque...
+			if (tirada <= ataque.getPrecision()) {
+				dmg = getAtaque() + ataque.getDmg() - enemy.getDefensa();
+				// Si el enemigo tiene muchisima defensa (Cosa que dudo)
+				if (dmg <= 0) {
+					dmg = 1;
+				}
+				
+				System.out.println(getNombre() + " usó " + ataque.getNombre()
+				+ " causando " + dmg + " de daño a " + enemigo.getNombre() + ".");
+				
+			} else {
+				System.out.println("Fallas el ataque, torpe.");
 			}
-			dmg = ataque - enemy.getDefensa();
+			
 			enemy.setVida(enemy.getVida() - dmg);
+			
 		} else {
-			System.out.println("El enemigo está debilitado.");
-		}
-
-		// Resetear ataque
-		ataque = 0;
-	}
-
-	// Función que comprueba el tipo de ataque
-	public int checkTipoAtaque() {
-		for (int i = 0; i < ataques.size(); i++) {
-			String tipo = ataques.get(i).getTipo().toLowerCase();
-			switch (tipo) {
-			case "debil":
-				return 1;
-			case "medio":
-				return 2;
-			case "fuerte":
-				return 3;
-			}
-		}
-		return 0; // Por si no se encuentra ninguno
-	}
-
-	public void turno(Combatiente enemy) {
-		int index = 0;
-		int seleccion = 0;
-		boolean check = false;
-
-		index = OpcionesCombate();
-
-		switch (index) {
-		case 1:
-			do {
-
-				opcionesAtaque();
-				seleccion = sc.nextInt();
-				sc.nextLine();
-			} while (!check && seleccion < 1 || seleccion > 3);
-
-			break;
-		
-		case 2:
-			System.out.println("Mochila");
-			break;
+			System.out.println("Error, enemigo derrotado");
 		}
 	}
 
-	public int OpcionesCombate() {
+	public void turno() {
+		// Primero mostrar las opciones de Atacar o Mochila
+		opcionesCombate();
+		System.out.println("Fin de tu turno.");
+	}
+
+	// Muestra las opciones de Atacar o Mochila
+	public void opcionesCombate() {
 		int index = 0;
 		do {
-			System.out.println("Selecciona una opción");
+			System.out.println("Elige una acción: ");
 			System.out.println("1.- Atacar 2.- Mochila");
 			index = sc.nextInt();
+			sc.nextLine();
 		} while (index < 1 || index > 2);
 
-		return index;
-	}
-
-	public void imprimirOpcionesAtaque() {
-		String str = "";
-		System.out.println("Selecciona un tipo de ataque");
-		for (int i = 0; i < getAtaques().size(); i++) {
-			str += i + ".- " + getAtaques().get(i).getNombre() + " ";
-		}
-		str += " 4.- Atras";
-		System.out.println(str);
-	}
-
-	public int opcionesAtaque() {
-		int index = 0;
-		do {
-			imprimirOpcionesAtaque();
-			index = sc.nextInt();
-		} while (index < 1 || index > 4);
-
-		return index;
-	}
-
-	public void elegirAccion(Combatiente enemy) {
-		int index = opcionesAtaque();
 		switch (index) {
+		// Opciones Atacar
 		case 1:
-			atacar(enemy);
+			opcionesAtacar();
 			break;
+		// Opciones Mochila
 		case 2:
 			break;
-		case 3:
-			break;
-		case 4:
-			break;
 
 		}
+	}
+
+	public void opcionesAtacar() {
+		int index = 0;
+		do {
+			System.out.println("Selecciona un ataque");
+			imprimirAtaquesYHuir();
+			index = sc.nextInt();
+			sc.nextLine();
+		} while (index < 1 || index > 4);
+		
+		switch (index) {
+		// Ataque debil
+		case 1:
+			atacar(enemigo, ataques.get(0));
+			break;
+		// Ataque medio
+		case 2:
+			atacar(enemigo, ataques.get(1));
+			break;
+		// Ataque fuerte
+		case 3:
+			atacar(enemigo, ataques.get(2));
+			break;
+		// Atras
+		case 4:
+			opcionesCombate();
+		}
+	}
+
+	public void imprimirAtaquesYHuir() {
+		String str = "";
+
+		for (int i = 0; i < ataques.size(); i++) {
+			str += (i + 1) + ".- " + ataques.get(i).getNombre();
+		}
+
+		System.out.print(str + " 4.- Huir");
 	}
 
 }
