@@ -12,9 +12,12 @@ public class Main {
 		GameManager gm = new GameManager();
 		gm.start();
 
-		// ALTER TABLE usuario AUTO_INCREMENT = 1; para resetear primart key al 1 después de las pruebas
-		Login log = new Login();
-		log.inicio();
-		
+		// ALTER TABLE usuario AUTO_INCREMENT = 1; para resetear primart key al 1
+		// después de las pruebas
+		Usuario usuario = new Usuario();
+		usuario.inicioLogin();
+
+		// usuario.puntuacionJugador("adios");
+		usuario.mostrarTop3();
 	}
 }
