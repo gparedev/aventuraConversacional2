@@ -19,5 +19,9 @@ public class Main {
 		
 		e1.imprimirInfo();
 		
+		
+		Combate comb = new Combate();
+		
+		comb.inicioCombate(p1, e1);
 	}
 }

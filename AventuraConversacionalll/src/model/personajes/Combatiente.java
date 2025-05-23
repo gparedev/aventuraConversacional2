@@ -25,9 +25,8 @@ public abstract class Combatiente extends Personaje {
 	private ArrayList<Ataque> ataques;
 
 	private Scanner sc = new Scanner(System.in);
-	
-	private Random rand = new Random();
 
+	private Random rand = new Random();
 
 	public Combatiente(String nombre, int vidaMax, int ataque, int pocionVida, int pocionAtaque) {
 		super(nombre);
@@ -79,6 +78,14 @@ public abstract class Combatiente extends Personaje {
 		this.enemigo = enemigo;
 	}
 
+	public int getVidaMax() {
+		return vidaMax;
+	}
+
+	public void setVidaMax(int vidaMax) {
+		this.vidaMax = vidaMax;
+	}
+
 	// POCIONES
 	public void usarPocionVida() {
 		int valorCura;
@@ -119,7 +126,7 @@ public abstract class Combatiente extends Personaje {
 		if (enemy.getVida() > 0) {
 			// Saca numero aleatorio entre 1 y 100.
 			int tirada = rand.nextInt(100 + 1);
-			
+
 			// Si Aciertas el ataque...
 			if (tirada <= ataque.getPrecision()) {
 				dmg = getAtaque() + ataque.getDmg() - enemy.getDefensa();
@@ -127,25 +134,39 @@ public abstract class Combatiente extends Personaje {
 				if (dmg <= 0) {
 					dmg = 1;
 				}
-				
-				System.out.println(getNombre() + " usó " + ataque.getNombre()
-				+ " causando " + dmg + " de daño a " + enemigo.getNombre() + ".");
-				
+
+				System.out.println(getNombre() + " usó " + ataque.getNombre() + " causando " + dmg + " de daño a "
+						+ enemigo.getNombre() + ".");
+
 			} else {
 				System.out.println("Fallas el ataque, torpe.");
 			}
-			
+
 			enemy.setVida(enemy.getVida() - dmg);
-			
+
+			if (enemy.getVida() < 0) {
+				enemy.setVida(0);
+			}
+
 		} else {
 			System.out.println("Error, enemigo derrotado");
 		}
 	}
 
 	public void turno() {
-		// Primero mostrar las opciones de Atacar o Mochila
-		opcionesCombate();
-		System.out.println("Fin de tu turno.");
+		if (getVida() > 0) {
+			// Resetear opciones como el booleano de las pociones, bufos de ataque lo que sea.
+			// RESETEARATRIBUTOS();
+			
+			// Mostrar las opciones de Atacar o Mochila
+			opcionesCombate();
+			// Imprimir información del enemigo despues de terminar el turno.
+			imprimirVidaEnemigo();
+			System.out.println("Fin del turno de: " + getNombre());
+		} else {
+			System.out.println("Has sido derrotado, no puedes jugar tu turno...");
+		}
+
 	}
 
 	// Muestra las opciones de Atacar o Mochila
@@ -178,7 +199,7 @@ public abstract class Combatiente extends Personaje {
 			index = sc.nextInt();
 			sc.nextLine();
 		} while (index < 1 || index > 4);
-		
+
 		switch (index) {
 		// Ataque debil
 		case 1:
@@ -197,15 +218,47 @@ public abstract class Combatiente extends Personaje {
 			opcionesCombate();
 		}
 	}
+	
+	public void opcionesMochila() {
+		int index = 0;
+		do {
+			System.out.println("Selecciona una acción");
+			imprimirOpcionesMochila();
+			index = sc.nextInt();
+			sc.nextLine();
+		} while (index < 1 || index > 3);
+
+		switch (index) {
+		// Poción vida
+		case 1:
+			usarPocionVida();
+			break;
+		// Poción ataque
+		case 2:
+			// usarPocionAtaque();
+			break;
+		case 3:
+			opcionesCombate();
+			break;
+		}
+	}
 
 	public void imprimirAtaquesYHuir() {
 		String str = "";
 
 		for (int i = 0; i < ataques.size(); i++) {
-			str += (i + 1) + ".- " + ataques.get(i).getNombre();
+			str += (i + 1) + ".-" + ataques.get(i).getNombre() + " ";
 		}
 
-		System.out.print(str + " 4.- Huir");
+		System.out.print(str + "3.-Atras");
+	}
+	
+	public void imprimirOpcionesMochila() {
+		System.out.println("1.-Poción de vida 2.-Poción de ataque");
+	}
+
+	public void imprimirVidaEnemigo() {
+		System.out.println(enemigo.getNombre() + ": " + enemigo.getVida() + "/" + enemigo.getVidaMax());
 	}
 
 }
