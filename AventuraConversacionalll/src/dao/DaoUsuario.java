@@ -3,19 +3,19 @@ package dao;
 import java.sql.*;
 import java.util.Scanner;
 
-public class DaoLogin {
+public class DaoUsuario {
 
 	private final Scanner sc = new Scanner(System.in);
 	private final Connection conn;
-	private static DaoLogin instance;
+	private static DaoUsuario instance;
 
-	public DaoLogin() throws SQLException {
+	public DaoUsuario() throws SQLException {
 		conn = DbConnection.getConnection();
 	}
 
-	public static DaoLogin getInstance() throws SQLException {
+	public static DaoUsuario getInstance() throws SQLException {
 		if (instance == null) {
-			instance = new DaoLogin();
+			instance = new DaoUsuario();
 		}
 		return instance;
 	}
@@ -36,10 +36,10 @@ public class DaoLogin {
 	}
 
 	// comprobar si nombre de usuario está disponible
-	public boolean nombreDisponible(String usuarioIn) throws SQLException {
+	public boolean nombreDisponible(String nombreIn) throws SQLException {
 		String query = "SELECT * FROM usuario WHERE nombre_usuario = ? LIMIT 1";
 		PreparedStatement statement = conn.prepareStatement(query);
-		statement.setString(1, usuarioIn);
+		statement.setString(1, nombreIn);
 		ResultSet rSet = statement.executeQuery();
 		boolean disponible = !rSet.next();
 		// - rSet.next() devuelve true si hay resultados, false si no
@@ -56,15 +56,15 @@ public class DaoLogin {
 	// *** USUARIOS EXISTENTES ***
 
 	// login
-	private void login(String usuarioIn) throws SQLException {
-		String contrasenaExistenteDeUsuario = obtenerContrasena(usuarioIn);
+	private void login(String nombreIn) throws SQLException {
+		String contrasenaExistenteDeUsuario = obtenerContrasena(nombreIn);
 
 		if (contrasenaExistenteDeUsuario == null) {
 			System.out.println("Error: no se encontró el usuario en la base de datos.");
 			return;
 		}
 
-		System.out.println("Bienvenido, " + usuarioIn + ". Introduce tu contraseña:");
+		System.out.println("Bienvenido, " + nombreIn + ". Introduce tu contraseña:");
 		String contrasenaIn = sc.nextLine();
 
 		while (!contrasenaExistenteDeUsuario.equals(contrasenaIn)) {
@@ -72,14 +72,14 @@ public class DaoLogin {
 			contrasenaIn = sc.nextLine();
 		}
 
-		System.out.println("¡Bienvenido de nuevo, " + usuarioIn + "!");
+		System.out.println("¡Bienvenido de nuevo, " + nombreIn + "!");
 	}
 
 	// obtener contraseña de un usuario existente que está haciendo login
-	private String obtenerContrasena(String usuarioIn) throws SQLException {
+	private String obtenerContrasena(String nombreIn) throws SQLException {
 		String query = "SELECT contrasena_usuario FROM usuario WHERE nombre_usuario = ?";
 		PreparedStatement statement = conn.prepareStatement(query);
-		statement.setString(1, usuarioIn);
+		statement.setString(1, nombreIn);
 		ResultSet rSet = statement.executeQuery();
 
 		String contrasena = null;
@@ -100,7 +100,6 @@ public class DaoLogin {
 		PreparedStatement statement = conn.prepareStatement(insertUsuario);
 		statement.setString(1, usuarioIn);
 		statement.setString(2, contrasenaIn);
-
 		int filas = statement.executeUpdate();
 
 		if (filas > 0) {
@@ -130,4 +129,46 @@ public class DaoLogin {
 
 		return contrasena;
 	}
+
+	// *** PUNTUACIONES ***
+	// puntuacion de un usuario en concreto
+	public void puntuacionJugador(String nombreIn) throws SQLException {
+		String nombreUsuario = nombreIn.trim();
+		String query = "SELECT puntuacion_total_usuario FROM usuario WHERE nombre_usuario = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setString(1, nombreUsuario);
+		ResultSet rSet = statement.executeQuery();
+
+		int puntuacion = 0;
+		if (rSet.next()) {
+			puntuacion = rSet.getInt("puntuacion_total_usuario");
+		}
+
+		System.out.println("Puntuación de " + nombreIn + ": " + puntuacion);
+
+		rSet.close();
+		statement.close();
+	}
+
+	// top 3
+	public void top3() throws SQLException {
+		String query = "SELECT nombre_usuario, puntuacion_total_usuario FROM usuario ORDER BY puntuacion_total_usuario DESC LIMIT 3";
+		PreparedStatement statement = conn.prepareStatement(query);
+		ResultSet rSet = statement.executeQuery();
+
+		System.out.println("\nTOP 3 HISTÓRICO:");
+		int contador = 1;
+		while (rSet.next()) {
+			String nombre = rSet.getString("nombre_usuario");
+			int puntuacion = rSet.getInt("puntuacion_total_usuario");
+			System.out.println(contador + ". " + nombre + ": " + puntuacion + " pts");
+			contador++;
+		}
+
+		rSet.close();
+		statement.close();
+	}
+
+	// jugador con mayor puntuación
+
 }
