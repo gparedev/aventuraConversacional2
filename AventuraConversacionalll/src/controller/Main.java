@@ -1,23 +1,34 @@
 package controller;
 
-import java.sql.*;
-import java.util.Scanner;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import model.*;
+import dao.DaoEnemigo;
+import dao.DaoProtagonista;
+import model.personajes.*;
 
 public class Main {
 
 	public static void main(String[] args) throws SQLException {
 
-		GameManager gm = new GameManager();
-		gm.start();
+		Protagonista p1 = DaoProtagonista.getInstance().generarProtagonista(1);
 
-		// ALTER TABLE usuario AUTO_INCREMENT = 1; para resetear primart key al 1
-		// después de las pruebas
-		Usuario usuario = new Usuario();
-		usuario.inicioLogin();
+		p1.imprimirInfo();
 
-		// usuario.puntuacionJugador("adios");
-		usuario.mostrarTop3();
+		Enemigo e1 = DaoEnemigo.getInstance().generarEnemigo(1);
+
+		e1.imprimirInfo();
+
+		Combate comb = new Combate();
+		
+		ArrayList<Enemigo> misEnemigos = new ArrayList<Enemigo>();
+		
+		misEnemigos = DaoEnemigo.getInstance().generarEnemigos(1);
+		
+		for (Enemigo e : misEnemigos) {
+			System.out.println(e.getNombre());
+		}
+		// Combate con el enemigo 5
+		comb.inicioCombate(p1, misEnemigos.get(4));
 	}
 }
