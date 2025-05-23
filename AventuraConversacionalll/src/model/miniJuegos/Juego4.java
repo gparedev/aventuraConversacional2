@@ -38,7 +38,7 @@ public class Juego4 {
 	private String frase(int num) {
 		String[] frases = { "\nHas ganado, has adivinado la palabra\nHas ganado 20 monedas\n",
 				"\nHas perdido, no has adivinado la palabra\nLa palabra era: " + this.palabraCompleta(),
-				"Vamos a jugar a adivinar la palabra, tienes que ir escogiendo letras y yo te diré si se encuentran o no dentro de la palabra",
+				"\nVamos a jugar a adivinar la palabra, tienes que ir escogiendo letras y yo te diré si se encuentran o no dentro de la palabra",
 				"\n¿Qué letra quieres escoger?", "Se ha producido un error, por favor, introduzca solo 1 caracter",
 				"Te quedan " + contador + " intentos fallidos\nRespuesta: " };
 
