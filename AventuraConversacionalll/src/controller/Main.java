@@ -20,15 +20,15 @@ public class Main {
 		e1.imprimirInfo();
 
 		Combate comb = new Combate();
-
-		comb.inicioCombate(p1, e1);
 		
-		ArrayList<Enemigo> misEnemigos = new ArrayList();
+		ArrayList<Enemigo> misEnemigos = new ArrayList<Enemigo>();
 		
 		misEnemigos = DaoEnemigo.getInstance().generarEnemigos(1);
 		
 		for (Enemigo e : misEnemigos) {
 			System.out.println(e.getNombre());
 		}
+		// Combate con el enemigo 5
+		comb.inicioCombate(p1, misEnemigos.get(4));
 	}
 }

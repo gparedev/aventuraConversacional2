@@ -239,7 +239,6 @@ public abstract class Combatiente extends Personaje {
 		case 2:
 			opcionesMochila();
 			break;
-
 		}
 	}
 
