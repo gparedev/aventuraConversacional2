@@ -1,15 +1,15 @@
 package model.personajes;
 
 public class Npc extends Personaje {
-	
+
 	private String frase;
-	
+
 	public Npc(String nombre, String frase) {
 		super(nombre);
 		this.frase = frase;
 	}
-	
-	//	GETTERS & SETTERS
+
+	// GETTERS & SETTERS
 	public String getFrase() {
 		return frase;
 	}
@@ -17,12 +17,9 @@ public class Npc extends Personaje {
 	public void setFrase(String frase) {
 		this.frase = frase;
 	}
-	
+
 	public void hablar() {
 		System.out.println(getFrase());
 	}
-	
 
- 
- 
 }

@@ -1,27 +1,34 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.DaoEnemigo;
 import dao.DaoProtagonista;
 import model.personajes.*;
 
 public class Main {
-	
+
 	public static void main(String[] args) throws SQLException {
-		
-		
+
 		Protagonista p1 = DaoProtagonista.getInstance().generarProtagonista(1);
-		
+
 		p1.imprimirInfo();
-		
+
 		Enemigo e1 = DaoEnemigo.getInstance().generarEnemigo(1);
-		
+
 		e1.imprimirInfo();
-		
-		
+
 		Combate comb = new Combate();
-		
+
 		comb.inicioCombate(p1, e1);
+		
+		ArrayList<Enemigo> misEnemigos = new ArrayList();
+		
+		misEnemigos = DaoEnemigo.getInstance().generarEnemigos(1);
+		
+		for (Enemigo e : misEnemigos) {
+			System.out.println(e.getNombre());
+		}
 	}
 }

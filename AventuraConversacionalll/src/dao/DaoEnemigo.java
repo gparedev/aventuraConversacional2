@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import model.personajes.Enemigo;
 import model.personajes.Protagonista;
@@ -23,7 +24,6 @@ public class DaoEnemigo {
 		return instance;
 	}
 
-	// Devuelve los ataques del protagonista en función del id.
 	public Enemigo generarEnemigo(int idEnemigo) throws SQLException {
 		// Consulta
 		String query = "SELECT nombre, vida_maxima, ataque,"
@@ -58,4 +58,35 @@ public class DaoEnemigo {
 		return e1;
 			
 	}
+	
+	public ArrayList<Enemigo> generarEnemigos(int idProtagonista) throws SQLException {
+	    String query = "SELECT id_enemigo, nombre, vida_maxima, ataque, pocion_vida, pocion_ataque " +
+	                   "FROM enemigo WHERE id_protagonista = ?";
+
+	    PreparedStatement stmntSelect = conn.prepareStatement(query);
+	    stmntSelect.setInt(1, idProtagonista);
+	    ResultSet resultData = stmntSelect.executeQuery();
+
+	    ArrayList<Enemigo> enemigos = new ArrayList<>();
+
+	    while (resultData.next()) {
+	        Enemigo e = new Enemigo(
+	            resultData.getString("nombre"),
+	            resultData.getInt("vida_maxima"),
+	            resultData.getInt("ataque"),
+	            resultData.getInt("pocion_vida"),
+	            resultData.getInt("pocion_ataque")
+	        );
+
+	        // Asignar ataques usando el id_enemigo real de la tabla
+	        int idEnemigo = resultData.getInt("id_enemigo");
+	        e.setAtaques(DaoAtaque.getInstance().obtenerAtaquesEnemigo(idEnemigo));
+
+	        enemigos.add(e);
+	    }
+
+	    stmntSelect.close();
+	    return enemigos;
+	}
+
 }

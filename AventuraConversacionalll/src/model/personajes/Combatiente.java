@@ -1,8 +1,6 @@
 package model.personajes;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +9,7 @@ public abstract class Combatiente extends Personaje {
 	private int vida;
 	private int vidaMax;
 	private int ataque;
+	private int ataqueIni;
 	private int defensa;
 
 	private int pocionAtaque;
@@ -33,6 +32,7 @@ public abstract class Combatiente extends Personaje {
 		this.vidaMax = vidaMax;
 		this.vida = vidaMax;
 		this.ataque = ataque;
+		this.ataqueIni = ataque;
 		this.pocionVida = pocionVida;
 		this.pocionAtaque = pocionAtaque;
 	}
@@ -86,6 +86,30 @@ public abstract class Combatiente extends Personaje {
 		this.vidaMax = vidaMax;
 	}
 
+	public int getAtaqueIni() {
+		return ataqueIni;
+	}
+
+	public void setAtaqueIni(int ataqueIni) {
+		this.ataqueIni = ataqueIni;
+	}
+
+	public boolean isPocionAtaqueUsada() {
+		return pocionAtaqueUsada;
+	}
+
+	public void setPocionAtaqueUsada(boolean pocionAtaqueUsada) {
+		this.pocionAtaqueUsada = pocionAtaqueUsada;
+	}
+
+	public boolean isPocionVidaUsada() {
+		return pocionVidaUsada;
+	}
+
+	public void setPocionVidaUsada(boolean pocionVidaUsada) {
+		this.pocionVidaUsada = pocionVidaUsada;
+	}
+
 	// POCIONES
 	public void usarPocionVida() {
 		int valorCura;
@@ -99,15 +123,28 @@ public abstract class Combatiente extends Personaje {
 				valorCura = VALOR_POCIONES;
 			}
 
+			setPocionVidaUsada(true);
+
 			imprimirCura(valorCura);
 		} else {
 			imprimirErrorCura();
 		}
 	}
 
+	public void usarPocionAtaque() {
+		// Si no he usado la poción y tengo 1 o más...
+		if (!pocionAtaqueUsada && pocionAtaque > 0) {
+			setAtaque(getAtaque() + VALOR_POCIONES);
+			imprimirPocionAtaque();
+			setPocionAtaqueUsada(true);
+		} else {
+			imprimirErrorPocionAtaque();
+		}
+	}
+
 	public void imprimirCura(int valorCura) {
 		System.out.println(getNombre() + " usó poción de vida y restaura " + valorCura + " puntos de salud!\n"
-				+ "Vida actual: " + vida);
+				+ "Vida actual: " + getVida() + "/" + getVidaMax());
 	}
 
 	public void imprimirErrorCura() {
@@ -115,6 +152,19 @@ public abstract class Combatiente extends Personaje {
 			System.out.println("No te quedan Pociones");
 		} else {
 			System.out.println("Ya has usado una poción, espera al siguiente turno.");
+		}
+	}
+
+	public void imprimirPocionAtaque() {
+		System.out.println(getNombre() + " aumenta su daño de ataque en " + VALOR_POCIONES);
+		System.out.println("Ataque actual: " + getAtaque());
+	}
+
+	public void imprimirErrorPocionAtaque() {
+		if (pocionAtaque <= 0) {
+			System.out.println("No te quedan Pociones");
+		} else {
+			System.out.println("Ya has usado una poción de ataque, espera al siguiente turno.");
 		}
 	}
 
@@ -155,13 +205,14 @@ public abstract class Combatiente extends Personaje {
 
 	public void turno() {
 		if (getVida() > 0) {
-			// Resetear opciones como el booleano de las pociones, bufos de ataque lo que sea.
-			// RESETEARATRIBUTOS();
-			
+
 			// Mostrar las opciones de Atacar o Mochila
 			opcionesCombate();
 			// Imprimir información del enemigo despues de terminar el turno.
 			imprimirVidaEnemigo();
+
+			resetBooleanPocionesAfterTurn();
+
 			System.out.println("Fin del turno de: " + getNombre());
 		} else {
 			System.out.println("Has sido derrotado, no puedes jugar tu turno...");
@@ -186,6 +237,7 @@ public abstract class Combatiente extends Personaje {
 			break;
 		// Opciones Mochila
 		case 2:
+			opcionesMochila();
 			break;
 
 		}
@@ -195,7 +247,7 @@ public abstract class Combatiente extends Personaje {
 		int index = 0;
 		do {
 			System.out.println("Selecciona un ataque");
-			imprimirAtaquesYHuir();
+			imprimirAtaquesYAtras();
 			index = sc.nextInt();
 			sc.nextLine();
 		} while (index < 1 || index > 4);
@@ -218,7 +270,7 @@ public abstract class Combatiente extends Personaje {
 			opcionesCombate();
 		}
 	}
-	
+
 	public void opcionesMochila() {
 		int index = 0;
 		do {
@@ -232,10 +284,12 @@ public abstract class Combatiente extends Personaje {
 		// Poción vida
 		case 1:
 			usarPocionVida();
+			opcionesMochila();
 			break;
 		// Poción ataque
 		case 2:
-			// usarPocionAtaque();
+			usarPocionAtaque();
+			opcionesMochila();
 			break;
 		case 3:
 			opcionesCombate();
@@ -243,22 +297,32 @@ public abstract class Combatiente extends Personaje {
 		}
 	}
 
-	public void imprimirAtaquesYHuir() {
+	public void imprimirAtaquesYAtras() {
 		String str = "";
 
 		for (int i = 0; i < ataques.size(); i++) {
 			str += (i + 1) + ".-" + ataques.get(i).getNombre() + " ";
 		}
 
-		System.out.print(str + "3.-Atras");
+		System.out.println(str + "4.-Atras");
 	}
-	
+
 	public void imprimirOpcionesMochila() {
-		System.out.println("1.-Poción de vida 2.-Poción de ataque");
+		System.out.println("1.-Poción de vida 2.-Poción de ataque 3.-Atras");
 	}
 
 	public void imprimirVidaEnemigo() {
 		System.out.println(enemigo.getNombre() + ": " + enemigo.getVida() + "/" + enemigo.getVidaMax());
+	}
+
+	public void resetStatsAfterCombat() {
+		// Reseteamos ataque por si se ha bufado previamente...
+		setAtaque(getAtaqueIni());
+	}
+
+	public void resetBooleanPocionesAfterTurn() {
+		setPocionAtaqueUsada(false);
+		setPocionVidaUsada(false);
 	}
 
 }

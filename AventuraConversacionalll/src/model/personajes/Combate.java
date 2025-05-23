@@ -46,6 +46,8 @@ public class Combate {
 
 		}
 
+		jugador.resetStatsAfterCombat();
+
 		System.out.println("Fin del combate.");
 	}
 }
