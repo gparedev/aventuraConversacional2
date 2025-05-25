@@ -1,8 +1,9 @@
 package model.miniJuegos;
 
 import java.util.Scanner;
+import model.Printer;
 
-public class Juego5 {
+public class Juego5 implements Printer{
 
 	// CARA O CRUZ
 
@@ -41,17 +42,13 @@ public class Juego5 {
 		return text;
 	}
 
-	private void imprimir(String text) {
-		System.out.println(text);
-	}
-
 	private void tramaJuego() {
-		this.imprimir(this.frase(0));
+		this.print(this.frase(0));
 		boolean salir = false;
 		do {
 			int ladoMonedaOpt = this.comprobarRespuesta();
 			this.turno(ladoMonedaOpt);
-			this.imprimir(this.puntuacion());
+			this.print(this.puntuacion());
 			salir = comprobarPuntuacion();
 		} while (salir == false); // Repite el minijuego mientras la opción de salir se falsa
 
@@ -59,11 +56,11 @@ public class Juego5 {
 
 	private void finalJuego() {
 		if (ganadoMoneda == 3) {
-			this.imprimir(this.frase(9));
+			this.print(this.frase(9));
 //			gamesWon++;
 //			coins += 20;
 		} else if (perdidoMoneda == 3) {
-			this.imprimir(this.frase(10));
+			this.print(this.frase(10));
 		}
 	}
 
@@ -72,10 +69,10 @@ public class Juego5 {
 		Scanner sc = new Scanner(System.in);
 		do {
 			this.errorOpt(ladoMonedaOpt);
-			this.imprimir(this.frase(2));
+			this.print(this.frase(2));
 			ladoMonedaOpt = sc.nextInt(); // Scanner para escoger el lado de la moneda
 			int jugadoMoneda = this.random(5); // Random para escoger la frases
-			this.imprimir(this.fraseMoneda(jugadoMoneda, ladoMonedaOpt));
+			this.print(this.fraseMoneda(jugadoMoneda, ladoMonedaOpt));
 
 		} while (ladoMonedaOpt < 1 || ladoMonedaOpt > 2); // Si la respuesta no es 1 o 2 la repite
 		
@@ -84,7 +81,7 @@ public class Juego5 {
 
 	private void errorOpt(int ladoMonedaOpt) {
 		if (ladoMonedaOpt < 1 || ladoMonedaOpt > 2) { // Si la respuesta no es 1 o 2 la repite
-			this.imprimir(this.frase(1));
+			this.print(this.frase(1));
 		}
 	}
 
@@ -119,20 +116,20 @@ public class Juego5 {
 	}
 
 	private void turno(int ladoMonedaOpt) {
-		this.imprimir(this.frase(3));
+		this.print(this.frase(3));
 		int ladoMoneda = this.random(2);
 		int cantoMoneda = this.random(20);
 		if (cantoMoneda < 1 || cantoMoneda > 1) {
 			this.resolucionTurno(ladoMoneda, ladoMonedaOpt);
 		} else if (cantoMoneda == 1) { // Si ha salido canto
-			this.imprimir(this.frase(8));
+			this.print(this.frase(8));
 		}
 	}
 
 	private void resolucionTurno(int ladoMoneda, int ladoMonedaOpt) {
 		switch (ladoMoneda) {
 		case 1: // Cara
-			this.imprimir(this.frase(4));
+			this.print(this.frase(4));
 			switch (ladoMonedaOpt) {
 			case 1: // Si has escogido cara y sale cara ganas
 				this.ganadoTurno();
@@ -143,7 +140,7 @@ public class Juego5 {
 			}
 			break;
 		case 2:
-			this.imprimir(this.frase(5));
+			this.print(this.frase(5));
 			switch (ladoMonedaOpt) {
 			case 1: // Si has escogido cara y sale cruz pierdes
 				this.perdidoTurno();
@@ -157,12 +154,12 @@ public class Juego5 {
 	}
 
 	private void ganadoTurno() {
-		this.imprimir(this.frase(6));
+		this.print(this.frase(6));
 		ganadoMoneda++;
 	}
 
 	private void perdidoTurno() {
-		this.imprimir(this.frase(7));
+		this.print(this.frase(7));
 		perdidoMoneda++;
 	}
 

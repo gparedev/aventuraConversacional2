@@ -1,8 +1,9 @@
 package model.miniJuegos;
 
 import java.util.Scanner;
+import model.Printer;
 
-public class Juego3 {
+public class Juego3 implements Printer{
 
 	// PARES O NONES
 
@@ -42,10 +43,6 @@ public class Juego3 {
 		return text;
 	}
 
-	private void imprimir(String text) {
-		System.out.println(text);
-	}
-
 	private void tramaJuego() {
 		int eleccionParesONones = this.eleccionParesONones();
 		this.imprimirEleccion(eleccionParesONones);
@@ -65,24 +62,24 @@ public class Juego3 {
 		switch (eleccion) {
 		case 1:
 			if (sumaNums % 2 == 0) {
-				this.imprimir(fraseTurno(numAleatorio, numLanzado, sumaNums));
-				this.imprimir(this.ganarTurno());
-				this.imprimir(this.marcador());
+				this.print(fraseTurno(numAleatorio, numLanzado, sumaNums));
+				this.print(this.ganarTurno());
+				this.print(this.marcador());
 			} else if (sumaNums % 2 != 0) {
-				this.imprimir(fraseTurno(numAleatorio, numLanzado, sumaNums));
-				this.imprimir(this.perderTurno());
-				this.imprimir(this.marcador());
+				this.print(fraseTurno(numAleatorio, numLanzado, sumaNums));
+				this.print(this.perderTurno());
+				this.print(this.marcador());
 			}
 			break;
 		case 2:
 			if (sumaNums % 2 != 0) {
-				this.imprimir(fraseTurno(numAleatorio, numLanzado, sumaNums));
-				this.imprimir(this.ganarTurno());
-				this.imprimir(this.marcador());
+				this.print(fraseTurno(numAleatorio, numLanzado, sumaNums));
+				this.print(this.ganarTurno());
+				this.print(this.marcador());
 			} else if (sumaNums % 2 == 0) {
-				this.imprimir(fraseTurno(numAleatorio, numLanzado, sumaNums));
-				this.imprimir(this.perderTurno());
-				this.imprimir(this.marcador());
+				this.print(fraseTurno(numAleatorio, numLanzado, sumaNums));
+				this.print(this.perderTurno());
+				this.print(this.marcador());
 			}
 			break;
 		}
@@ -119,7 +116,7 @@ public class Juego3 {
 		Scanner sc = new Scanner(System.in);
 		int numLanzado = 0;
 		while (numLanzado <= 0 || numLanzado >= 6) {
-			this.imprimir(this.frase(6));
+			this.print(this.frase(6));
 			numLanzado = sc.nextInt();
 		}
 		return numLanzado;
@@ -136,7 +133,7 @@ public class Juego3 {
 		int eleccionParesONones = 0;
 //		eleccionParesONones = sc.nextInt();
 		while (eleccionParesONones != 1 && eleccionParesONones != 2) {
-			this.imprimir(this.frase(2));
+			this.print(this.frase(2));
 			eleccionParesONones = sc.nextInt();
 		}
 		return eleccionParesONones;
@@ -145,22 +142,22 @@ public class Juego3 {
 	private void imprimirEleccion(int eleccion) {
 		switch (eleccion) {
 		case 1:
-			this.imprimir(this.frase(3));
+			this.print(this.frase(3));
 			break;
 		case 2:
-			this.imprimir(this.frase(4));
+			this.print(this.frase(4));
 			break;
 		}
-		this.imprimir(this.frase(5));
+		this.print(this.frase(5));
 	}
 
 	private void finalJuego() {
 		if (contadorPuntosParesONonesJugador == 3) {
-			this.imprimir(this.frase(0));
+			this.print(this.frase(0));
 //			gamesWon++;
 //			coins += 20;
 		} else if (contadorPuntosParesONonesNPC == 3) {
-			this.imprimir(this.frase(1));
+			this.print(this.frase(1));
 		}
 
 	}
