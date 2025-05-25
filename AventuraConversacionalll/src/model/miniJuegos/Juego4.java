@@ -1,9 +1,10 @@
 package model.miniJuegos;
 
 import java.util.Arrays;
+import model.Printer;
 import java.util.Scanner;
 
-public class Juego4 {
+public class Juego4 implements Printer{
 
 	// ADIVINA LA PALABRA
 
@@ -45,19 +46,15 @@ public class Juego4 {
 		String text = frases[num];
 		return text;
 	}
-
-	private void imprimir(String text) {
-		System.out.println(text);
-	}
-
+	
 	private void tramaJuego() {
 		String letra;
 		int cantidad = 1;
 		boolean letraTrue = false;
 		Scanner sc = new Scanner(System.in);
-		this.imprimir(this.frase(2));
+		this.print(this.frase(2));
 		do {
-			this.imprimir(this.frase(3));
+			this.print(this.frase(3));
 			letra = sc.nextLine(); // Pregunta del caracter al usuario
 			cantidad = letra.length(); // Se comprueba la cantidad de caracteres existentes en la respuesta del usuario
 			this.comprobarCaracteres(letra);
@@ -69,11 +66,11 @@ public class Juego4 {
 
 	private void finalJuego() {
 		if (Arrays.equals(palabra, respuesta)) { // Si los arrays de la palabra y la respuesta son iguales gana
-			this.imprimir(this.frase(0));
+			this.print(this.frase(0));
 //			gamesWon++;
 //			coins += 20;
 		} else if (contador <= 0) { // Si el contador llega a 0 pierde
-			this.imprimir(this.frase(1));
+			this.print(this.frase(1));
 		}
 	}
 
@@ -176,7 +173,7 @@ public class Juego4 {
 			}
 
 		} else { // Si la respuesta tiene más de 1 caracter
-			this.imprimir(this.frase(5));
+			this.print(this.frase(5));
 		}
 	}
 
@@ -187,7 +184,7 @@ public class Juego4 {
 			// igual dentro del array de palabras usadas
 			if (letra.equalsIgnoreCase(letrasUsadas[i])) { // poniendo el array primero, da error, pero
 															// poniendo el string primero funciona
-				this.imprimir(this.letraUsada(letra));
+				this.print(this.letraUsada(letra));
 				repetida = true; // indica que la letra está repetida, ponindo el valor en true
 			}
 		}
@@ -228,7 +225,7 @@ public class Juego4 {
 	}
 
 	private void respuestaIntentos() {
-		this.imprimir(this.frase(5));
+		this.print(this.frase(5));
 		for (int i = 0; i < respuesta.length; i++) {
 			System.out.print(respuesta[i]); // Imprime el array de la respuesta
 		}

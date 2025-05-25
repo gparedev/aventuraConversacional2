@@ -1,13 +1,11 @@
 package model;
 
-import java.sql.SQLException;
+import java.sql.*;
 
-import dao.DaoLogin;
 import dao.DaoMiniJuego;
 import model.miniJuegos.*;
 
-public class MiniJuegoManager {
-
+public class MiniJuegoManager implements Printer{
 	// ATRIBUTOS
 
 	private int numJuego = 0;
@@ -82,7 +80,7 @@ public class MiniJuegoManager {
 	
 	private void imprimirDatos() throws SQLException {
 		this.getDatos();
-		System.out.println(datos);
+		this.print(datos);
 	}
 
 }

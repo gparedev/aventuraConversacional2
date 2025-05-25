@@ -1,8 +1,9 @@
 package model.miniJuegos;
 
 import java.util.Scanner;
+import model.Printer;
 
-public class Juego2 {
+public class Juego2 implements Printer{
 
 	// PREGUNTAS
 
@@ -98,12 +99,8 @@ public class Juego2 {
 		}
 	}
 
-	private void imprimir(String text) {
-		System.out.println(text);
-	}
-
 	private void tramaJuego() {
-		this.imprimir(this.frase(0));
+		this.print(this.frase(0));
 		Scanner sc = new Scanner(System.in);
 		for (int i = 0; i < preguntas.length; i++) {
 			// Vamos recorriendo el Array de indices aleatorios para que las preguntas
@@ -173,9 +170,9 @@ public class Juego2 {
 
 	private void finalJuego() {
 		if (error >= 2) {
-			this.imprimir(this.frase(1));
+			this.print(this.frase(1));
 		} else {
-			this.imprimir(this.frase(2));
+			this.print(this.frase(2));
 //			gamesWon++;
 //			coins += 20;
 		}

@@ -1,8 +1,9 @@
 package model.miniJuegos;
 
 import java.util.Scanner;
+import model.Printer;
 
-public class Juego1 {
+public class Juego1 implements Printer{
 
 	// PIEDRA, PAPEL O TIJERA
 
@@ -40,12 +41,8 @@ public class Juego1 {
 		return text;
 	}
 
-	private void imprimir(String text) {
-		System.out.println(text);
-	}
-
 	private void tramaJuego() {
-		this.imprimir(this.frase(0));
+		this.print(this.frase(0));
 		while (this.victorias < 2 && this.derrotas < 2) {
 			Scanner sc = new Scanner(System.in);
 			int myChoice;
@@ -55,7 +52,7 @@ public class Juego1 {
 				// Se reasignan las variables cada vez que el turno se acaba
 				myChoice = 0;
 				enemyChoice = 0;
-				this.imprimir(this.frase(4));
+				this.print(this.frase(4));
 				this.imprimirOpciones();
 				myChoice = sc.nextInt();
 				sc.nextLine();
@@ -136,12 +133,12 @@ public class Juego1 {
 
 	private void finalJuego() {
 		if (this.victorias == 2) {
-			this.imprimir(this.frase(1));
+			this.print(this.frase(1));
 			// personaje.setGamesWon++;
 			// personaje.setCoins += 20;
 		} else {
-			this.imprimir(this.frase(2));
+			this.print(this.frase(2));
 		}
-		this.imprimir(this.frase(3));
+		this.print(this.frase(3));
 	}
 }

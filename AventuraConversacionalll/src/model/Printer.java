@@ -1,12 +1,8 @@
 package model;
 
-public class Printer {
-
-	public Printer() {
-
-	}
-
-	public void print(String text) {
+public interface Printer {
+	
+	default void print(String text) {
 		System.out.println(text);
 	}
 
