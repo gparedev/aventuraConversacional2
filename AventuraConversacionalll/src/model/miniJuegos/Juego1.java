@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego1 implements Printer{
+public class Juego1 implements Printer {
 
 	// PIEDRA, PAPEL O TIJERA
 
@@ -35,7 +35,8 @@ public class Juego1 implements Printer{
 		String[] frases = { "\nVamos a jugar a piedra, papel o tijera",
 				"\nGanas el minijuego!\n" + currentNpc + ": Eres bastante máquina tú, campeón.\nHas ganado 20 monedas",
 				"\nPierdes el minijuego!" + currentNpc + ": Lo has intentado chaval, prueba la próxima vez.",
-				"\nMinijuego finalizado, te despides de " + currentNpc, "\nElige entre las siguientes opciones: " };
+				"\nMinijuego finalizado, te despides de " + currentNpc, "\nElige entre las siguientes opciones: ",
+				"\nEmpate!", "\nPierdes!", "\nGanas!" };
 
 		String text = frases[num];
 		return text;
@@ -62,7 +63,7 @@ public class Juego1 implements Printer{
 			// Resolución de ronda
 			this.ronda(myChoice, enemyChoice);
 		}
-		
+
 	}
 
 	private void imprimirOpciones() {
@@ -70,6 +71,16 @@ public class Juego1 implements Printer{
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i + 1) + ".- " + opciones[i]);
 		}
+	}
+
+	private void imprimirEleccionPersonaje(String opt) {
+		String text = "Has elegido " + opt + "\n";
+		this.print(text);
+	}
+
+	private void imprimirEleccionEnemigo(String opt) {
+		String text = currentNpc + "eligió " + opt;
+		this.print(text);
 	}
 
 	private int eleccionEnemigo() {
@@ -82,50 +93,50 @@ public class Juego1 implements Printer{
 		switch (myChoice) {
 		// Si elijo 1.- piedra...
 		case 1:
-			System.out.println("Has elegido " + opciones[0] + "\n");
+			this.imprimirEleccionPersonaje(opciones[0]);
 			if (enemyChoice == 1) {
-				System.out.println(currentNpc + " eligió " + opciones[0]);
-				System.out.println("\nEmpate!");
+				this.imprimirEleccionEnemigo(opciones[0]);
+				this.print(this.frase(5));
 			} else if (enemyChoice == 2) {
-				System.out.println(currentNpc + " eligió " + opciones[1]);
-				System.out.println("\nPierdes!");
+				this.imprimirEleccionEnemigo(opciones[1]);
+				this.print(this.frase(6));
 				derrotas++;
 			} else {
-				System.out.println(currentNpc + " eligió " + opciones[2]);
-				System.out.println("\nGanas!");
+				this.imprimirEleccionEnemigo(opciones[2]);
+				this.print(this.frase(7));
 				victorias++;
 			}
 			break;
 		// Si elijo 2.- papel...
 		case 2:
-			System.out.println("Has elegido " + opciones[1] + "\n");
+			this.imprimirEleccionPersonaje(opciones[1]);
 			if (enemyChoice == 1) {
-				System.out.println(currentNpc + " eligió " + opciones[0]);
-				System.out.println("\nGanas!");
+				this.imprimirEleccionEnemigo(opciones[0]);
+				this.print(this.frase(7));
 				victorias++;
 			} else if (enemyChoice == 2) {
-				System.out.println(currentNpc + " eligió " + opciones[1]);
-				System.out.println("\nEmpate!");
+				this.imprimirEleccionEnemigo(opciones[1]);
+				this.print(this.frase(5));
 			} else {
-				System.out.println(currentNpc + " eligió " + opciones[2]);
-				System.out.println("\nPierdes!");
+				this.imprimirEleccionEnemigo(opciones[2]);
+				this.print(this.frase(6));
 				derrotas++;
 			}
 			break;
 		// Si elijo 3.- Tijera...
 		case 3:
-			System.out.println("Has elegido " + opciones[2] + "\n");
+			this.imprimirEleccionPersonaje(opciones[2]);
 			if (enemyChoice == 1) {
-				System.out.println(currentNpc + " eligió " + opciones[0]);
-				System.out.println("\nPierdes!");
+				this.imprimirEleccionEnemigo(opciones[0]);
+				this.print(this.frase(6));
 				derrotas++;
 			} else if (enemyChoice == 2) {
-				System.out.println(currentNpc + " eligió " + opciones[1]);
-				System.out.println("\nGanas!");
+				this.imprimirEleccionEnemigo(opciones[1]);
+				this.print(this.frase(7));
 				victorias++;
 			} else {
-				System.out.println(currentNpc + " eligió " + opciones[2]);
-				System.out.println("\nGanas!");
+				this.imprimirEleccionEnemigo(opciones[2]);
+				this.print(this.frase(5));
 			}
 			break;
 		}
