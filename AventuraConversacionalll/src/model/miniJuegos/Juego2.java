@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego2 implements Printer{
+public class Juego2 implements Printer {
 
 	// PREGUNTAS
 
@@ -41,7 +41,7 @@ public class Juego2 implements Printer{
 		String[] frases = {
 				"\n" + currentNpc + ": Hola, responde a las siguientes preguntas, si fallas 2 veces o más pierdes\n",
 				currentNpc + ": Has perdido, tontito",
-				currentNpc + ": Has ganado el juego, figurín.\nHas ganado 20 monedas" };
+				currentNpc + ": Has ganado el juego, figurín.\nHas ganado 20 monedas", "Correcto!", "Error" };
 
 		String text = frases[num];
 		return text;
@@ -109,62 +109,48 @@ public class Juego2 implements Printer{
 			// Imprimimos las preguntas a partir del indice aleatorio
 			System.out.println(preguntas[index]);
 			String answer = "";
-
+			String palabra = null;
 			switch (index) {
 			// Pregunta 0
 			case 0:
 				answer = sc.nextLine().toLowerCase();
-				if (answer.equals("4")) {
-					System.out.println("Correcto!");
-				} else {
-					System.out.println("Error");
-					error++;
-				}
+				palabra = "4";
+				this.comprobarRespuesta(answer, palabra);
 				break;
 			// Pregunta 1
 			case 1:
 				answer = sc.nextLine().toLowerCase();
-				if (answer.equals("platano")) {
-					System.out.println("Correcto!");
-
-				} else {
-					System.out.println("Error");
-					error++;
-				}
+				palabra = "platano";
+				this.comprobarRespuesta(answer, palabra);
 				break;
 			// Pregunta 2
 			case 2:
 				answer = sc.nextLine().toLowerCase();
-				if (answer.equals("roxas")) {
-					System.out.println("Correcto!");
-
-				} else {
-					System.out.println("Error");
-					error++;
-				}
+				palabra = "roxas";
+				this.comprobarRespuesta(answer, palabra);
 				break;
 			// Pregunta 3
 			case 3:
 				answer = sc.nextLine().toLowerCase();
-				if (answer.equals("telefono")) {
-					System.out.println("Correcto!");
-				} else {
-					System.out.println("Error");
-					error++;
-				}
+				palabra = "telefono";
+				this.comprobarRespuesta(answer, palabra);
 				break;
 			// Pregunta 4
 			case 4:
-
 				answer = sc.nextLine().toLowerCase();
-				if (answer.equals("tortuga")) {
-					System.out.println("Correcto!");
-				} else {
-					System.out.println("Error");
-					error++;
-				}
+				palabra = "tortuga";
+				this.comprobarRespuesta(answer, palabra);
 				break;
 			}
+		}
+	}
+	
+	private void comprobarRespuesta(String answer, String palabra) {
+		if (answer.equals(palabra)) {
+			this.print(this.frase(3));
+		} else {
+			this.print(this.frase(4));
+			error++;
 		}
 	}
 
