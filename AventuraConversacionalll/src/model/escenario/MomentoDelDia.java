@@ -1,25 +1,29 @@
 package model.escenario;
 
-public enum MomentoDelDia {
-	MANIANA(0, 0),
-	TARDE(0, 0),
-	NOCHE(1, 2);
+public class MomentoDelDia {
+    private String nombre;
+    private int penalizacionDefensa;
+    private int bonusAtaque;
+    
+    public MomentoDelDia() {
+    	
+    }
 
-	private final int penalizacionAtaque;
-	private final int bonusAtaque;
+    public MomentoDelDia(String nombre, int penalizacionDefensa, int bonusAtaque) {
+        this.nombre = nombre;
+        this.penalizacionDefensa = penalizacionDefensa;
+        this.bonusAtaque = bonusAtaque;
+    }
 
-	MomentoDelDia(int penalizacionAtaque, int bonusAtaque) {
-		this.penalizacionAtaque = penalizacionAtaque;
-		this.bonusAtaque = bonusAtaque;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public int getPenalizacionAtaque() {
-		return penalizacionAtaque;
-	}
+    public int getPenalizacionDefensa() {
+        return penalizacionDefensa;
+    }
 
-	public int getBonusAtaque() {
-		return bonusAtaque;
-	}
-	
-	
+    public int getBonusAtaque() {
+        return bonusAtaque;
+    }
 }
