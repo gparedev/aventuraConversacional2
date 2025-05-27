@@ -1,28 +1,65 @@
 package model.escenario;
 
-import java.util.Random;
+import java.sql.SQLException;
+
+import dao.DaoCondicionAtmosferica;
+import dao.DaoCondicionTerreno;
+import dao.DaoMomentoDelDia;
 
 public class Escenario {
-
 	private String nombre;
-	private CondicionesAtmosfericas conAtmos;
-	private MomentoDelDia momentDia;
-	private CondicionesTerreno condTerreno;
-	
-	private Random rand = new Random();
-	
-	public Escenario() {
+	private CondicionAtmosferica ca;
+	private CondicionTerreno ct;
+	private MomentoDelDia md;
+
+	private int penalizacionAtaque;
+	private int penalizacionDefensa;
+	private int bonusAtaque;
+
+	// Cuando queramos crear un escenario solo tenemos que darle un nombre.
+	public Escenario(String nombre) throws SQLException {
+		this.nombre = nombre;
+		setCa(DaoCondicionAtmosferica.getInstance().obtenerAleatorio());
+		setCt(DaoCondicionTerreno.getInstance().obtenerAleatorio());
+		setMd(DaoMomentoDelDia.getInstance().obtenerAleatorio());
+		
+		setPenalizacionAtaque(ca.getPenalizacionAtaque() + ct.getPenalizacionAtaque());
+		setPenalizacionDefensa(ct.getPenalizacionDefensa() + md.getPenalizacionDefensa());
+		setBonusAtaque(md.getBonusAtaque());
 		
 	}
 
-	public Escenario(String nombre, CondicionesAtmosfericas conAtmos, MomentoDelDia momentDia,
-			CondicionesTerreno condTerreno) {
+	public Escenario(String nombre, CondicionAtmosferica ca, CondicionTerreno ct, MomentoDelDia md) {
 		this.nombre = nombre;
-		this.conAtmos = conAtmos;
-		this.momentDia = momentDia;
-		this.condTerreno = condTerreno;
+		this.ca = ca;
+		this.ct = ct;
+		this.md = md;
 	}
-	// GETTERS & SETTERS
+
+	public int getPenalizacionAtaque() {
+		return penalizacionAtaque;
+	}
+
+	public int getPenalizacionDefensa() {
+		return penalizacionDefensa;
+	}
+
+	public int getBonusAtaque() {
+		return bonusAtaque;
+	}
+
+	public void setPenalizacionAtaque(int penalizacionAtaque) {
+		this.penalizacionAtaque = penalizacionAtaque;
+	}
+
+	public void setPenalizacionDefensa(int penalizacionDefensa) {
+		this.penalizacionDefensa = penalizacionDefensa;
+	}
+
+	public void setBonusAtaque(int bonusAtaque) {
+		this.bonusAtaque = bonusAtaque;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -31,49 +68,43 @@ public class Escenario {
 		this.nombre = nombre;
 	}
 
-	public CondicionesAtmosfericas getConAtmos() {
-		return conAtmos;
+	public CondicionAtmosferica getCa() {
+		return ca;
 	}
 
-	public void setConAtmos(CondicionesAtmosfericas conAtmos) {
-		this.conAtmos = conAtmos;
+	public void setCa(CondicionAtmosferica ca) {
+		this.ca = ca;
 	}
 
-	public MomentoDelDia getMomentDia() {
-		return momentDia;
+	public CondicionTerreno getCt() {
+		return ct;
 	}
 
-	public void setMomentDia(MomentoDelDia momentDia) {
-		this.momentDia = momentDia;
+	public void setCt(CondicionTerreno ct) {
+		this.ct = ct;
 	}
 
-	public CondicionesTerreno getCondTerreno() {
-		return condTerreno;
+	public MomentoDelDia getMd() {
+		return md;
 	}
 
-	public void setCondTerreno(CondicionesTerreno condTerreno) {
-		this.condTerreno = condTerreno;
+	public void setMd(MomentoDelDia md) {
+		this.md = md;
 	}
 	
-	// FUNCIONES
-
-	public int getPenalizacionAtaque() {
-		return conAtmos.getPenalizacionAtaque() + momentDia.getPenalizacionAtaque()
-				+ condTerreno.getPenalizacionAtaque();
-	}
-
-	public int getBonusAtaque() {
-		return momentDia.getBonusAtaque();
-	}
-
-	public int getPenalizacionDefensa() {
-		return condTerreno.getPenalizacionDefensa();
+	public void imprimirCondiciones() {
+		System.out.println("Momento del dia: " + md.getNombre() + "\n"
+				+ "Condición atmosférica: " + ca.getNombre() + "\n"
+				+ "Terreno: " + ct.getNombre() + "\n");
 	}
 	
-	public void setRandomAtmos() {
-		int numConAtmos = CondicionesAtmosfericas.values().length;
-		int index = rand.nextInt(numConAtmos);
-		// Asignamos la condicione atmosferica aleatoria a partir del random obtenido.
-		setConAtmos(CondicionesAtmosfericas.values()[index]);
+	public void imprimirInfo() {
+		imprimirCondiciones();
+		
+		System.out.println("Nombre: " + getNombre() + "\n"
+				+ "Penalización Ataque: " + getPenalizacionAtaque() + "\n"
+				+ "Penalización Defensa: " + getPenalizacionDefensa() + "\n"
+				+ "Penalización Bonus Ataque: " + getBonusAtaque());
 	}
+
 }
