@@ -23,7 +23,7 @@ public class DaoCondicionAtmosferica {
 
 	public CondicionAtmosferica obtenerAleatorio() throws SQLException {
 		// Elige el primer registro de manera aleatoria.
-		String query = "SELECT nombre, penalizacion_defensa, bonus_ataque"
+		String query = "SELECT nombre, penalizacion_ataque"
 				+ " FROM condiciones_atmosfericas ORDER BY RAND() LIMIT 1";
 
 		PreparedStatement stmntSelect = conn.prepareStatement(query);

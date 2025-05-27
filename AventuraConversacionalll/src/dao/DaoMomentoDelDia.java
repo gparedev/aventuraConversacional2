@@ -6,7 +6,7 @@ import model.escenario.MomentoDelDia;
 
 public class DaoMomentoDelDia {
 	private Connection conn = null;
-	private static DaoProtagonista instance = null;
+	private static DaoMomentoDelDia instance = null;
 
 	public DaoMomentoDelDia() throws SQLException {
 
@@ -14,9 +14,9 @@ public class DaoMomentoDelDia {
 	}
 
 	// Patrón singleton
-	public static DaoProtagonista getInstance() throws SQLException {
+	public static DaoMomentoDelDia getInstance() throws SQLException {
 		if (instance == null) {
-			instance = new DaoProtagonista();
+			instance = new DaoMomentoDelDia();
 		}
 		return instance;
 	}
