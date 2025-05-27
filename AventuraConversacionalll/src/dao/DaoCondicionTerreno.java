@@ -2,29 +2,29 @@ package dao;
 
 import java.sql.*;
 
-import model.escenario.MomentoDelDia;
+import model.escenario.CondicionTerreno;
 
-public class DaoMomentoDelDia {
+public class DaoCondicionTerreno {
 	private Connection conn = null;
-	private static DaoProtagonista instance = null;
+	private static DaoCondicionTerreno instance = null;
 
-	public DaoMomentoDelDia() throws SQLException {
+	public DaoCondicionTerreno() throws SQLException {
 
 		conn = DbConnection.getConnection();
 	}
 
 	// Patrón singleton
-	public static DaoProtagonista getInstance() throws SQLException {
+	public static DaoCondicionTerreno getInstance() throws SQLException {
 		if (instance == null) {
-			instance = new DaoProtagonista();
+			instance = new DaoCondicionTerreno();
 		}
 		return instance;
 	}
 
-	public MomentoDelDia obtenerAleatorio() throws SQLException {
+	public CondicionTerreno obtenerAleatorio() throws SQLException {
 		// Elige el primer registro de manera aleatoria.
 		String query = "SELECT nombre, penalizacion_defensa, bonus_ataque"
-				+ " FROM momentos_dia ORDER BY RAND() LIMIT 1";
+				+ " FROM condiciones_terreno ORDER BY RAND() LIMIT 1";
 
 		PreparedStatement stmntSelect = conn.prepareStatement(query);
 
@@ -32,11 +32,11 @@ public class DaoMomentoDelDia {
 
 		while (resultData.next()) {
 			String nombre = resultData.getString("nombre");
+			int penalizacionAtaque = resultData.getInt("penalizacion_ataque");
 			int penalizacionDefensa = resultData.getInt("penalizacion_defensa");
-			int bonusAtaque = resultData.getInt("bonus_ataque");
 
-			MomentoDelDia md = new MomentoDelDia(nombre, penalizacionDefensa, bonusAtaque);
-			return md;
+			CondicionTerreno ct = new CondicionTerreno(nombre, penalizacionAtaque, penalizacionDefensa);
+			return ct;
 		}
 		// Por si no encuentra nada.
 		return null;
