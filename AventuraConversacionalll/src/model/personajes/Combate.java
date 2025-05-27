@@ -1,10 +1,14 @@
 package model.personajes;
 
+import java.sql.SQLException;
 import java.util.Random;
+
+import model.escenario.Escenario;
 
 public class Combate {
 
 	private boolean empiezaProta = false;
+	private Escenario escenario;
 	Random rand = new Random();
 
 	public Combate() {
@@ -25,11 +29,27 @@ public class Combate {
 		}
 	}
 
-	public void inicioCombate(Combatiente jugador, Combatiente enemigo) {
+	private void setEscenario(Escenario escenario) {
+		this.escenario = escenario;
+	}
+
+	public void inicioCombate(Combatiente jugador, Combatiente enemigo) throws SQLException {
 
 		asignarEnemigos(jugador, enemigo);
+		
+		setEscenario(new Escenario("Escenario aleatorio"));
+		
+		escenario.imprimirInfo();
 
 		asignarQuienEmpieza();
+		
+		// Esto es una guarrada, habría que cambiarlo
+		jugador.setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque()
+		- escenario.getPenalizacionAtaque());
+		enemigo.setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque()
+		- escenario.getPenalizacionAtaque());
+		jugador.setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
+		enemigo.setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
 
 		System.out.println("Comienza el combate entre " + jugador.getNombre() + " y " + enemigo.getNombre());
 
