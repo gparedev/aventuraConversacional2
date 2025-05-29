@@ -10,6 +10,7 @@ public abstract class Combatiente extends Personaje {
 	private int vidaMax;
 	private int ataque;
 	private int ataqueIni;
+	private int defensaIni;
 	private int defensa;
 
 	private int pocionAtaque;
@@ -33,6 +34,7 @@ public abstract class Combatiente extends Personaje {
 		this.vida = vidaMax;
 		this.ataque = ataque;
 		this.ataqueIni = ataque;
+		this.defensaIni = defensa;
 		this.pocionVida = pocionVida;
 		this.pocionAtaque = pocionAtaque;
 	}
@@ -44,6 +46,14 @@ public abstract class Combatiente extends Personaje {
 
 	public void setDefensa(int defensa) {
 		this.defensa = defensa;
+	}
+
+	public int getDefensaIni() {
+		return defensaIni;
+	}
+
+	public void setDefensaIni(int defensaIni) {
+		this.defensaIni = defensaIni;
 	}
 
 	public int getVida() {
@@ -108,6 +118,22 @@ public abstract class Combatiente extends Personaje {
 
 	public void setPocionVidaUsada(boolean pocionVidaUsada) {
 		this.pocionVidaUsada = pocionVidaUsada;
+	}
+
+	public int getPocionAtaque() {
+		return pocionAtaque;
+	}
+
+	public void setPocionAtaque(int pocionAtaque) {
+		this.pocionAtaque = pocionAtaque;
+	}
+
+	public int getPocionVida() {
+		return pocionVida;
+	}
+
+	public void setPocionVida(int pocionVida) {
+		this.pocionVida = pocionVida;
 	}
 
 	// POCIONES
@@ -189,7 +215,7 @@ public abstract class Combatiente extends Personaje {
 						+ enemigo.getNombre() + ".");
 
 			} else {
-				System.out.println("Fallas el ataque, torpe.");
+				System.out.println(getNombre() + " falla el ataque, torpe.");
 			}
 
 			enemy.setVida(enemy.getVida() - dmg);
@@ -225,10 +251,10 @@ public abstract class Combatiente extends Personaje {
 		int index = 0;
 		do {
 			System.out.println("Elige una acción: ");
-			System.out.println("1.- Atacar 2.- Mochila");
+			System.out.println("1.- Atacar 2.- Mochila 3.- Información");
 			index = sc.nextInt();
 			sc.nextLine();
-		} while (index < 1 || index > 2);
+		} while (index < 1 || index > 3);
 
 		switch (index) {
 		// Opciones Atacar
@@ -238,6 +264,11 @@ public abstract class Combatiente extends Personaje {
 		// Opciones Mochila
 		case 2:
 			opcionesMochila();
+			break;
+			
+		case 3:
+			imprimirInfo();
+			opcionesCombate();
 			break;
 		}
 	}
@@ -267,6 +298,7 @@ public abstract class Combatiente extends Personaje {
 		// Atras
 		case 4:
 			opcionesCombate();
+			break;
 		}
 	}
 
@@ -317,11 +349,20 @@ public abstract class Combatiente extends Personaje {
 	public void resetStatsAfterCombat() {
 		// Reseteamos ataque por si se ha bufado previamente...
 		setAtaque(getAtaqueIni());
+		setDefensa(getDefensaIni());
 	}
 
 	public void resetBooleanPocionesAfterTurn() {
 		setPocionAtaqueUsada(false);
 		setPocionVidaUsada(false);
+	}
+	
+	public void imprimirInfo() {
+		System.out.println("Nombre: " + getNombre() + "\n"
+				+ "Vida: " + getVida() + "/" + getVidaMax() + "\n"
+				+ "Ataque: " + getAtaque() + "\n"
+				+ "Poción de vida: " + getPocionVida() + "\n"
+				+ "Poción de ataque: " + getPocionVida() + "\n");
 	}
 
 }
