@@ -29,16 +29,18 @@ public class Protagonista extends Combatiente {
 	}
     
     
-    @Override
-    public void imprimirInfo() {
-		System.out.println("Nombre: " + getNombre() + "\n"
-				+ "Vida: " + getVida() + "/" + getVidaMax() + "\n"
-				+ "Ataque: " + getAtaque() + "\n"
-				+ "Defensa: " + getDefensa() + "\n"
-				+ "Poción de vida: " + getPocionVida() + "\n"
-				+ "Poción de ataque: " + getPocionVida() + "\n"
-				+ "Monedas: " + getMonedas() + "\n"
-				+ "Juegos Ganados: " + getJuegosGanados() + "\n");
-    }
+	@Override
+	public void imprimirInfo() {
+	    System.out.println("===== ESTADO DEL PERSONAJE =====");
+	    System.out.println("Nombre           : " + getNombre());
+	    System.out.println("Vida             : " + getVida() + " / " + getVidaMax());
+	    System.out.println("Ataque           : " + getAtaque());
+	    System.out.println("Poción de Vida   : " + getPocionVida());
+	    System.out.println("Poción de Ataque : " + getPocionAtaque());
+	    System.out.println("Monedas          : " + getMonedas());
+	    System.out.println("Juegos Ganados   : " + getJuegosGanados());
+	    System.out.println("================================");
+	}
+
     
 }

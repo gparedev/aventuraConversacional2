@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.DaoEnemigo;
 import dao.DaoProtagonista;
@@ -9,8 +10,20 @@ import model.personajes.*;
 public class GameManager {
 	
 	private Protagonista p1;
+	// Puede que no haga ni falta y solo con el ArrayList me valga
 	private Enemigo enemy;
+	private ArrayList<Enemigo> misEnemigos;
 	private Combate comb;
+	
+	// Juegos
+	
+	// Localizaciones
+	
+	// NPCs
+	
+	// Tienda
+	
+	// Scanner
 
 	public GameManager() {
 		

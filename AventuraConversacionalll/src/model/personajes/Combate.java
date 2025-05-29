@@ -46,8 +46,10 @@ public class Combate {
 		int numero = rand.nextInt(2) + 1;
 		if (numero == 1) {
 			empiezaProta = true;
+			System.out.println("Empieza " + getJugador().getNombre() + "\n");
 		} else {
 			empiezaProta = false;
+			System.out.println("Empieza " + enemigo.getNombre() + "\n");
 		}
 	}
 
@@ -70,24 +72,25 @@ public class Combate {
 
 		asignarCombatientes(jugador, enemigo);
 
-		setEscenario(new Escenario("Escenario aleatorio"));
+		System.out.println("Comienza el combate entre " + getJugador().getNombre() +
+				" y " + getEnemigo().getNombre() + "\n");
 
+		setEscenario(new Escenario("Escenario aleatorio"));
+		
+		// Aqui podemos cambiar el nombre del escenario
+		escenario.setNombre("Escenario de " + getEnemigo().getNombre());
 		escenario.imprimirInfo();
 
 		asignarQuienEmpieza();
 
 		modificarStatsPorEscenario();
 
-		System.out.println("Comienza el combate entre " + getJugador().getNombre() +
-				" y " + getEnemigo().getNombre());
 
 		while (getJugador().getVida() > 0 && getEnemigo().getVida() > 0) {
-			if (empiezaProta) {
-				System.out.println("Empieza " + getJugador().getNombre());
+			if (empiezaProta) {			
 				getJugador().turno();
 				getEnemigo().turno();
 			} else {
-				System.out.println("Empieza " + enemigo.getNombre());
 				getEnemigo().turno();
 				getJugador().turno();
 			}
