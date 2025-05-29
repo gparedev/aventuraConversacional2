@@ -2,37 +2,91 @@ package model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import dao.DaoEnemigo;
 import dao.DaoProtagonista;
 import model.personajes.*;
 
 public class GameManager {
-	
+
 	private Protagonista p1;
 	// Puede que no haga ni falta y solo con el ArrayList me valga
 	private Enemigo enemy;
 	private ArrayList<Enemigo> misEnemigos;
+	private ArrayList<Npc> misNpcs;
 	private Combate comb;
-	
+
 	// Juegos
-	
+
 	// Localizaciones
-	
+
 	// NPCs
-	
+
 	// Tienda
-	
+
 	// Scanner
+	Scanner sc = new Scanner(System.in);
 
 	public GameManager() {
-		
+
+	}
+
+	public Protagonista getP1() {
+		return p1;
+	}
+
+
+
+	public void setP1(Protagonista p1) {
+		this.p1 = p1;
+	}
+	
+	
+	public ArrayList<Enemigo> getMisEnemigos() {
+		return misEnemigos;
+	}
+
+	public void setMisEnemigos(ArrayList<Enemigo> misEnemigos) {
+		this.misEnemigos = misEnemigos;
+	}
+
+	// Como el personaje no se genera hasta esta elección no podemos acceder a sus
+	// atributos.
+	public int seleccionarPersonaje() {
+		int index = 0;
+		do {
+			System.out.println("Selecciona un personaje");
+			System.out.println("1.-Sora 2.-Cloud 3.-2A");
+			index = sc.nextInt();
+			sc.nextLine();
+		} while (index < 1 || index > 3);
+		return index;
+
+	}
+	
+	public void generarMundo() throws SQLException {
+		int index = seleccionarPersonaje();
+		switch (index) {
+		case 1:
+			generarProtagonista(index);
+			generarEnemigos(index);
+			break;
+			
+		}
+	}
+
+	public void generarProtagonista(int index) throws SQLException {
+		setP1(DaoProtagonista.getInstance().generarProtagonista(index)); 
+	}
+	
+	public void generarEnemigos(int index) throws SQLException {
+		setMisEnemigos(DaoEnemigo.getInstance().generarEnemigos(index));
 	}
 	
 	public void start() throws SQLException {
-		p1 = DaoProtagonista.getInstance().generarProtagonista(1);
-		enemy = DaoEnemigo.getInstance().generarEnemigo(1);
+		generarMundo();
 		comb = new Combate();
-		comb.inicioCombate(p1, enemy);
+		comb.inicioCombate(getP1(), misEnemigos.get(0));
 	}
 }
