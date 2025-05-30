@@ -36,7 +36,6 @@ public class Main {
 //		comb.inicioCombate(p1, misEnemigos.get(0));
 		
 		GameManager gm = new GameManager();
-		
 		gm.start();
 		
 	}

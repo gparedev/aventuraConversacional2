@@ -41,7 +41,7 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public void inicioLogin() throws SQLException {
+	public void inicio() throws SQLException {
 		DaoUsuario.getInstance().inicioDeSesionORegistro();
 	}
 
