@@ -10,9 +10,7 @@ public class Juego1 implements Printer {
 	// ATRIBUTOS
 	int victorias = 0;
 	int derrotas = 0;
-
-	// VARIABLES DE PRUEBA
-	String currentNpc = "Antonio";
+	String currentNpc = null;
 
 	// CONSTRUCTORES
 
@@ -22,13 +20,20 @@ public class Juego1 implements Printer {
 
 	// GET Y SET
 
+	public void setCurrentNpc(String currentNpc) {
+		this.currentNpc = currentNpc;
+	}
+	
 	// FUNCIONES
 
-	public void juegoStart() {
+	public boolean juegoStart(String npc) {
+		this.setCurrentNpc(npc);
+		boolean gamesWin = false;
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
-		this.finalJuego();
+		gamesWin = this.finalJuego();
+		return gamesWin;
 	}
 
 	private String frase(int num) {
@@ -142,14 +147,15 @@ public class Juego1 implements Printer {
 		}
 	}
 
-	private void finalJuego() {
+	private boolean finalJuego() {
+		boolean gamesWin = false;
 		if (this.victorias == 2) {
 			this.print(this.frase(1));
-			// personaje.setGamesWon++;
-			// personaje.setCoins += 20;
+			gamesWin = true;
 		} else {
 			this.print(this.frase(2));
 		}
 		this.print(this.frase(3));
+		return gamesWin;
 	}
 }

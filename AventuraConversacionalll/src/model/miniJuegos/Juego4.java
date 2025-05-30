@@ -14,9 +14,7 @@ public class Juego4 implements Printer{
 	String palabra[] = this.palabra();
 	String respuesta[] = this.respuesta(palabra);
 	String[] letrasUsadas = new String[31];
-
-	// VARIABLES DE PRUEBA
-	String currentNpc = "Antonio";
+	String currentNpc = null;
 
 	// CONSTRUCTORES
 
@@ -26,14 +24,20 @@ public class Juego4 implements Printer{
 
 	// GET Y SET
 
+	public void setCurrentNpc(String currentNpc) {
+		this.currentNpc = currentNpc;
+	}
+	
 	// FUNCIONES
 
-	public void juegoStart() {
-
+	public boolean juegoStart(String npc) {
+		this.setCurrentNpc(npc);
+		boolean gamesWin = false;
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
-		this.finalJuego();
+		gamesWin = this.finalJuego();
+		return gamesWin;
 	}
 
 	private String frase(int num) {
@@ -64,14 +68,15 @@ public class Juego4 implements Printer{
 
 	}
 
-	private void finalJuego() {
+	private boolean finalJuego() {
+		boolean gamesWin = false;
 		if (Arrays.equals(palabra, respuesta)) { // Si los arrays de la palabra y la respuesta son iguales gana
 			this.print(this.frase(0));
-//			gamesWon++;
-//			coins += 20;
+			gamesWin = true;
 		} else if (contador <= 0) { // Si el contador llega a 0 pierde
 			this.print(this.frase(1));
 		}
+		return gamesWin;
 	}
 
 	private String palabraCompleta() {

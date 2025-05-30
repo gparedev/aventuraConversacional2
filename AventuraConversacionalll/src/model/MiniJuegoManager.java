@@ -39,7 +39,7 @@ public class MiniJuegoManager implements Printer{
 
 	// FUNCIONES
 
-	public void start() throws SQLException{
+	public void start(String npc) throws SQLException{
 		if (numJuego == 0) {
 			numJuego = (int) (Math.random() * 5 + 1);
 		} else {
@@ -49,33 +49,35 @@ public class MiniJuegoManager implements Printer{
 			numJuego = 1;
 		}
 
-		this.startJuego(numJuego);
+		this.startJuego(numJuego, npc);
 	}
 
-	private void startJuego(int numJuego) throws SQLException {
+	private boolean startJuego(int numJuego, String npc) throws SQLException {
 		this.imprimirDatos();
+		boolean gameWin = false;
 		switch (numJuego) {
 		case 1:
 			Juego1 juego1 = new Juego1();
-			juego1.juegoStart();
+			gameWin = juego1.juegoStart(npc);
 			break;
 		case 2:
 			Juego2 juego2 = new Juego2();
-			juego2.juegoStart();
+			gameWin = juego2.juegoStart(npc);
 			break;
 		case 3:
 			Juego3 juego3 = new Juego3();
-			juego3.juegoStart();
+			gameWin = juego3.juegoStart(npc);
 			break;
 		case 4:
 			Juego4 juego4 = new Juego4();
-			juego4.juegoStart();
+			gameWin = juego4.juegoStart(npc);
 			break;
 		case 5:
 			Juego5 juego5 = new Juego5();
-			juego5.juegoStart();
+			gameWin = juego5.juegoStart(npc);
 			break;
 		}
+		return gameWin;
 	}
 	
 	private void imprimirDatos() throws SQLException {

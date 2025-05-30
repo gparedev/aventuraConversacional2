@@ -10,9 +10,7 @@ public class Juego5 implements Printer{
 	// ATRIBUTOS
 	int ganadoMoneda = 0; // Contabiliza las veces que el personaje gana
 	int perdidoMoneda = 0; // Contabiliza las veces que el personaje pierde
-
-	// VARIABLES DE PRUEBA
-	String currentNpc = "Antonio";
+	String currentNpc = null;
 
 	// CONSTRUCTORES
 
@@ -22,13 +20,20 @@ public class Juego5 implements Printer{
 
 	// GET Y SET
 
+	public void setCurrentNpc(String currentNpc) {
+		this.currentNpc = currentNpc;
+	}
+	
 	// FUNCIONES
 
-	public void juegoStart() {
+	public boolean juegoStart(String npc) {
+		this.setCurrentNpc(npc);
+		boolean gamesWin = false;
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
-		this.finalJuego();
+		gamesWin = this.finalJuego();
+		return gamesWin;
 	}
 
 	private String frase(int num) {
@@ -54,14 +59,15 @@ public class Juego5 implements Printer{
 
 	}
 
-	private void finalJuego() {
+	private boolean finalJuego() {
+		boolean gamesWin = false;
 		if (ganadoMoneda == 3) {
 			this.print(this.frase(9));
-//			gamesWon++;
-//			coins += 20;
+			gamesWin = true;
 		} else if (perdidoMoneda == 3) {
 			this.print(this.frase(10));
 		}
+		return gamesWin;
 	}
 
 	private int comprobarRespuesta() {
