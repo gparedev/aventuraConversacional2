@@ -10,9 +10,37 @@ public class Protagonista extends Combatiente {
         super(nombre, vidaMaxima, ataque, pocionVida, pocionAtaque);
     }
     
-    public void imprimirInfo() {
-    	System.out.println(getNombre());
-    	System.out.println(getAtaques().get(0).getNombre());
-    }
+    // Getters & Setters
+    
+	public int getMonedas() {
+		return monedas;
+	}
+
+	public void setMonedas(int monedas) {
+		this.monedas = monedas;
+	}
+
+	public int getJuegosGanados() {
+		return juegosGanados;
+	}
+
+	public void setJuegosGanados(int juegosGanados) {
+		this.juegosGanados = juegosGanados;
+	}
+    
+    
+	@Override
+	public void imprimirInfo() {
+	    System.out.println("===== ESTADO DEL PERSONAJE =====");
+	    System.out.println("Nombre           : " + getNombre());
+	    System.out.println("Vida             : " + getVida() + " / " + getVidaMax());
+	    System.out.println("Ataque           : " + getAtaque());
+	    System.out.println("Poción de Vida   : " + getPocionVida());
+	    System.out.println("Poción de Ataque : " + getPocionAtaque());
+	    System.out.println("Monedas          : " + getMonedas());
+	    System.out.println("Juegos Ganados   : " + getJuegosGanados());
+	    System.out.println("================================");
+	}
+
     
 }

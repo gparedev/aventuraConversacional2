@@ -9,63 +9,94 @@ public class Combate {
 
 	private boolean empiezaProta = false;
 	private Escenario escenario;
+	private Combatiente jugador;
+	private Combatiente enemigo;
 	Random rand = new Random();
 
 	public Combate() {
 
 	}
 
-	private void asignarEnemigos(Combatiente jugador, Combatiente enemigo) {
-		jugador.setEnemigo(enemigo);
-		enemigo.setEnemigo(jugador);
+	public Combatiente getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Combatiente jugador) {
+		this.jugador = jugador;
+	}
+
+	public Combatiente getEnemigo() {
+		return enemigo;
+	}
+
+	public void setEnemigo(Combatiente enemigo) {
+		this.enemigo = enemigo;
+	}
+
+	// Paso necesario en el que se le asigna un enemigo a cada combatiente, 
+	// Si no hacemos esto el jugador o el enemigo atacaria a objetos nulos
+	private void asignarCombatientes(Combatiente jugador, Combatiente enemigo) {
+		setJugador(jugador);
+		getJugador().setEnemigo(enemigo);
+		setEnemigo(enemigo);
+		getEnemigo().setEnemigo(jugador);
 	}
 
 	private void asignarQuienEmpieza() {
 		int numero = rand.nextInt(2) + 1;
 		if (numero == 1) {
 			empiezaProta = true;
+			System.out.println("Empieza " + getJugador().getNombre() + "\n");
 		} else {
 			empiezaProta = false;
+			System.out.println("Empieza " + enemigo.getNombre() + "\n");
 		}
 	}
 
 	private void setEscenario(Escenario escenario) {
 		this.escenario = escenario;
 	}
+	
+	private void modificarStatsPorEscenario() {
+		// Modificación stats Jugador
+		getJugador().setAtaque(jugador.getAtaqueIni() +
+				escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
+		getJugador().setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
+		// Modificación stats Enemigo
+		getEnemigo().setAtaque(jugador.getAtaqueIni() +
+				escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
+		getEnemigo().setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
+	}
 
 	public void inicioCombate(Combatiente jugador, Combatiente enemigo) throws SQLException {
 
-		asignarEnemigos(jugador, enemigo);
-		
+		asignarCombatientes(jugador, enemigo);
+
+		System.out.println("Comienza el combate entre " + getJugador().getNombre() +
+				" y " + getEnemigo().getNombre() + "\n");
+
 		setEscenario(new Escenario("Escenario aleatorio"));
 		
+		// Aqui podemos cambiar el nombre del escenario
+		escenario.setNombre("Escenario de " + getEnemigo().getNombre());
 		escenario.imprimirInfo();
 
 		asignarQuienEmpieza();
-		
-		// Esto es una guarrada, habría que cambiarlo
-		jugador.setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque()
-		- escenario.getPenalizacionAtaque());
-		enemigo.setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque()
-		- escenario.getPenalizacionAtaque());
-		jugador.setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
-		enemigo.setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
 
-		System.out.println("Comienza el combate entre " + jugador.getNombre() + " y " + enemigo.getNombre());
+		modificarStatsPorEscenario();
 
-		while (jugador.getVida() > 0 && enemigo.getVida() > 0) {
-			if (empiezaProta) {
-				System.out.println("Empieza " + jugador.getNombre());
-				jugador.turno();
-				enemigo.turno();
+
+		while (getJugador().getVida() > 0 && getEnemigo().getVida() > 0) {
+			if (empiezaProta) {			
+				getJugador().turno();
+				getEnemigo().turno();
 			} else {
-				System.out.println("Empieza " + enemigo.getNombre());
-				enemigo.turno();
-				jugador.turno();
+				getEnemigo().turno();
+				getJugador().turno();
 			}
 
 		}
-
+		// Reseteamos las stats que fueron modificadas por el escenario.
 		jugador.resetStatsAfterCombat();
 
 		System.out.println("Fin del combate.");

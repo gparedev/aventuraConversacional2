@@ -104,7 +104,7 @@ public class Escenario {
 		System.out.println("Nombre: " + getNombre() + "\n"
 				+ "Penalización Ataque: " + getPenalizacionAtaque() + "\n"
 				+ "Penalización Defensa: " + getPenalizacionDefensa() + "\n"
-				+ "Penalización Bonus Ataque: " + getBonusAtaque());
+				+ "Penalización Bonus Ataque: " + getBonusAtaque() + "\n");
 	}
 
 }

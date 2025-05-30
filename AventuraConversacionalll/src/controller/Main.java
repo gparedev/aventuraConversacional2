@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dao.DaoEnemigo;
 import dao.DaoProtagonista;
+import model.GameManager;
 import model.escenario.Escenario;
 import model.personajes.*;
 
@@ -31,9 +32,12 @@ public class Main {
 //		}
 //		// Combate con el enemigo 5
 //		comb.inicioCombate(p1, misEnemigos.get(4));
+//		// Combate con el enemigo 1
+//		comb.inicioCombate(p1, misEnemigos.get(0));
 		
-		Escenario escenario = new Escenario("Escenario Combate 1");
-		escenario.imprimirInfo();	
+		GameManager gm = new GameManager();
+		
+		gm.start();
 		
 	}
 }
