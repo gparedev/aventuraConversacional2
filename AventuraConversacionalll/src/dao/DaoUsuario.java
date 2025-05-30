@@ -131,24 +131,6 @@ public class DaoUsuario {
 	}
 
 	// *** PUNTUACIONES ***
-	// puntuacion de un usuario en concreto
-	public void puntuacionJugador(String nombreIn) throws SQLException {
-		String nombreUsuario = nombreIn.trim();
-		String query = "SELECT puntuacion_total_usuario FROM usuario WHERE nombre_usuario = ?";
-		PreparedStatement statement = conn.prepareStatement(query);
-		statement.setString(1, nombreUsuario);
-		ResultSet rSet = statement.executeQuery();
-
-		int puntuacion = 0;
-		if (rSet.next()) {
-			puntuacion = rSet.getInt("puntuacion_total_usuario");
-		}
-
-		System.out.println("Puntuación de " + nombreIn + ": " + puntuacion);
-
-		rSet.close();
-		statement.close();
-	}
 
 	// top 3
 	public void top3() throws SQLException {
