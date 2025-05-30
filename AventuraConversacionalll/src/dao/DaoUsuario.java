@@ -170,5 +170,20 @@ public class DaoUsuario {
 	}
 
 	// jugador con mayor puntuación
+	public void top1() throws SQLException {
+		String query = "SELECT nombre_usuario, puntuacion_total_usuario FROM usuario ORDER BY puntuacion_total_usuario DESC LIMIT 1";
+		PreparedStatement statement = conn.prepareStatement(query);
+		ResultSet rSet = statement.executeQuery();
+
+		System.out.println("\nTOP 1 HISTÓRICO:");
+		while (rSet.next()) {
+			String nombre = rSet.getString("nombre_usuario");
+			int puntuacion = rSet.getInt("puntuacion_total_usuario");
+			System.out.println("El jugador con mayor puntuación es " + nombre + " con " + puntuacion + " pts");
+		}
+
+		rSet.close();
+		statement.close();
+	}
 
 }
