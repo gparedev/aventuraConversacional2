@@ -4,7 +4,7 @@ import java.util.Arrays;
 import model.Printer;
 import java.util.Scanner;
 
-public class Juego4 implements Printer{
+public class Juego4 implements Printer , Juego{
 
 	// ADIVINA LA PALABRA
 

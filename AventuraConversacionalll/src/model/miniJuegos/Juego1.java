@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego1 implements Printer {
+public class Juego1 implements Printer, Juego {
 
 	// PIEDRA, PAPEL O TIJERA
 
