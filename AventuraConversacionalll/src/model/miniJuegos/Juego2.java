@@ -15,9 +15,7 @@ public class Juego2 implements Printer {
 			"¿Cuál es el nombre del incorporeo de Sora?",
 			"Habla y no tiene boca, oye y no tiene oído, es chiquito y hace ruido, muchas veces se equivoca.",
 			"Soy muy lenta y me gusta nadar, llevo siempre conmigo mi propio hogar ¿quién soy?" };
-
-	// VARIABLES DE PRUEBA
-	String currentNpc = "Antonio";
+	String currentNpc = null;
 
 	// CONSTRUCTORES
 
@@ -27,14 +25,21 @@ public class Juego2 implements Printer {
 
 	// GET Y SET
 
+	public void setCurrentNpc(String currentNpc) {
+		this.currentNpc = currentNpc;
+	}
+	
 	// FUNCIONES
 
-	public void juegoStart() {
+	public boolean juegoStart(String npc) {
+		this.setCurrentNpc(npc);
+		boolean gameWin = false;
 		this.indexArray();
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
-		this.finalJuego();
+		gameWin = this.finalJuego();
+		return gameWin;
 	}
 
 	private String frase(int num) {
@@ -154,14 +159,15 @@ public class Juego2 implements Printer {
 		}
 	}
 
-	private void finalJuego() {
+	private boolean finalJuego() {
+		boolean gamesWin = false;
 		if (error >= 2) {
 			this.print(this.frase(1));
 		} else {
 			this.print(this.frase(2));
-//			gamesWon++;
-//			coins += 20;
+			gamesWin = true;
 		}
+		return gamesWin;
 	}
 
 }

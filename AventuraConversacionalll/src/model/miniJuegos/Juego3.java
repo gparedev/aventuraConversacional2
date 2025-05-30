@@ -10,9 +10,7 @@ public class Juego3 implements Printer{
 	// ATRIBUTOS
 	int contadorPuntosParesONonesJugador = 0;
 	int contadorPuntosParesONonesNPC = 0;
-
-	// VARIABLES DE PRUEBA
-	String currentNpc = "Antonio";
+	String currentNpc = null;
 
 	// CONSTRUCTORES
 
@@ -22,14 +20,23 @@ public class Juego3 implements Printer{
 
 	// GET Y SET
 
+	public void setCurrentNpc(String currentNpc) {
+		this.currentNpc = currentNpc;
+	}
+
 	// FUNCIONES
 
-	public void juegoStart() {
+	public boolean juegoStart(String npc) {
+		this.setCurrentNpc(npc);
+		boolean gameWin = false;
 		// Trama del juego
 		this.tramaJuego();
 		// Mensaje final de juego
-		this.finalJuego();
+		gameWin = this.finalJuego();
+		return gameWin;
 	}
+
+	
 
 	private String frase(int num) {
 		String[] frases = { "\n" + currentNpc + ": Has ganado, maquinita\nHas ganado 20 monedas",
@@ -151,15 +158,15 @@ public class Juego3 implements Printer{
 		this.print(this.frase(5));
 	}
 
-	private void finalJuego() {
+	private boolean finalJuego() {
+		boolean gamesWon = false;
 		if (contadorPuntosParesONonesJugador == 3) {
 			this.print(this.frase(0));
-//			gamesWon++;
-//			coins += 20;
+			gamesWon = true;
 		} else if (contadorPuntosParesONonesNPC == 3) {
 			this.print(this.frase(1));
 		}
-
+		return gamesWon;
 	}
 
 }
