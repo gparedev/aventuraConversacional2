@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import dao.DaoEnemigo;
+import dao.DaoLocation;
 import dao.DaoProtagonista;
 import model.personajes.*;
 
@@ -20,6 +21,7 @@ public class GameManager {
 	// Juegos
 
 	// Localizaciones
+	private ArrayList<Location> misLocations;
 
 	// NPCs
 
@@ -85,6 +87,8 @@ public class GameManager {
 	}
 	
 	public void start() throws SQLException {
+		misLocations = DaoLocation.getInstance().generarLocationsProtagonista(1);
+		misLocations.get(0).imprimirFrase();
 		generarMundo();
 		comb = new Combate();
 		comb.inicioCombate(getP1(), misEnemigos.get(0));
