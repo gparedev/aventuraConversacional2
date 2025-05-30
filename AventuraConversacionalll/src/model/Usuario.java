@@ -52,5 +52,9 @@ public class Usuario {
 	public void mostrarTop3() throws SQLException {
 		DaoUsuario.getInstance().top3();
 	}
+	
+	public void mostrarTop1() throws SQLException {
+		DaoUsuario.getInstance().top1();
+	}
 
 }
