@@ -8,6 +8,7 @@ import dao.DaoEnemigo;
 import dao.DaoLocation;
 import dao.DaoNpc;
 import dao.DaoProtagonista;
+import model.miniJuegos.Juego;
 import model.miniJuegos.Juego1;
 import model.miniJuegos.Juego2;
 import model.miniJuegos.Juego3;
@@ -26,12 +27,9 @@ public class GameManager {
 	private boolean gameOver = false;
 	private int mundosCompletados;
 
-	// Los juegos deberian de estar en un ArrayList de tipo Juego
-	private Juego1 juego1 = new Juego1();
-	private Juego2 juego2 = new Juego2();
-	private Juego3 juego3 = new Juego3();
-	private Juego4 juego4 = new Juego4();
-	private Juego5 juego5 = new Juego5();
+
+	
+	private ArrayList<Juego> misJuegos = new ArrayList<Juego>();
 
 	// Scanner
 	Scanner sc = new Scanner(System.in);
@@ -97,6 +95,14 @@ public class GameManager {
 	public void setMundosCompletados(int mundosCompletados) {
 		this.mundosCompletados = mundosCompletados;
 	}
+	
+	public void inicializarJuegos() {
+		misJuegos.add(new Juego1());
+		misJuegos.add(new Juego2());
+		misJuegos.add(new Juego3());
+		misJuegos.add(new Juego4());
+		misJuegos.add(new Juego5());
+	}
 
 	// Como el personaje no se genera hasta esta elección no podemos acceder a sus
 	// atributos.
@@ -119,6 +125,7 @@ public class GameManager {
 		generarEnemigos(index);
 		generarLocations(index);
 		generarNpcs(index);
+		inicializarJuegos();
 
 	}
 
@@ -190,7 +197,7 @@ public class GameManager {
 	public void elegirMundo() throws SQLException {
 
 		int index = 0;
-		while (getP1().getVida() > 0 || !isGameOver()) {
+		while (getP1().getVida() > 0 && !isGameOver() && getMundosCompletados() < 5) {
 			do {
 				mostrarMundos();
 				index = sc.nextInt();
@@ -200,12 +207,13 @@ public class GameManager {
 			if (getMundosCompletados() < 5) {
 				explorarMundo(index - 1);
 			} else {
+				System.out.println("Has completado 5 mundos!");
 				setGameOver(true);
 			}
 			
 		}
 		
-		System.out.println("Juego completado maquina");
+		System.out.println("Juego terminado máquina");
 
 	}
 
@@ -214,7 +222,7 @@ public class GameManager {
 			misLocations.get(index).imprimirFrase();
 			misLocations.get(index).setVisited(true);
 			// misjuegos.get(index).juegoStart...
-			if (juego1.juegoStart(misNpcs.get(index).getNombre())) {
+			if (misJuegos.get(index).juegoStart(misNpcs.get(index).getNombre())) {
 				System.out.println("Ganas el juego");
 				getP1().setJuegosGanados(getP1().getJuegosGanados() + 1);
 			} else {

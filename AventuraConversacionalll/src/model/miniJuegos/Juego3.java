@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego3 implements Printer{
+public class Juego3 implements Printer , Juego{
 
 	// PARES O NONES
 
