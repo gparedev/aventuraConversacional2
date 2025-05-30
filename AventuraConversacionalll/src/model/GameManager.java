@@ -36,13 +36,10 @@ public class GameManager {
 		return p1;
 	}
 
-
-
 	public void setP1(Protagonista p1) {
 		this.p1 = p1;
 	}
-	
-	
+
 	public ArrayList<Enemigo> getMisEnemigos() {
 		return misEnemigos;
 	}
@@ -64,7 +61,7 @@ public class GameManager {
 		return index;
 
 	}
-	
+
 	public void generarMundo() throws SQLException {
 		int index = seleccionarPersonaje();
 		switch (index) {
@@ -72,19 +69,21 @@ public class GameManager {
 			generarProtagonista(index);
 			generarEnemigos(index);
 			break;
-			
+
 		}
 	}
 
 	public void generarProtagonista(int index) throws SQLException {
-		setP1(DaoProtagonista.getInstance().generarProtagonista(index)); 
+		setP1(DaoProtagonista.getInstance().generarProtagonista(index));
 	}
-	
+
 	public void generarEnemigos(int index) throws SQLException {
 		setMisEnemigos(DaoEnemigo.getInstance().generarEnemigos(index));
 	}
-	
+
 	public void start() throws SQLException {
+		Usuario usuario = new Usuario();
+		usuario.inicio();
 		generarMundo();
 		comb = new Combate();
 		comb.inicioCombate(getP1(), misEnemigos.get(0));

@@ -13,7 +13,7 @@ public class DbConnection {
 
 			if (instance == null) {
 
-				String url = "jdbc:mysql://localhost:3306/aventuraconversacionalll";
+				String url = "jdbc:mysql://localhost:3306/aventura_conversacional";
 				String usuario = "root";
 				String contrasena = "";
 
