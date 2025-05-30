@@ -69,7 +69,6 @@ public class GameManager {
 			generarProtagonista(index);
 			generarEnemigos(index);
 			break;
-
 		}
 	}
 
@@ -83,9 +82,35 @@ public class GameManager {
 
 	public void start() throws SQLException {
 		Usuario usuario = new Usuario();
-		usuario.inicio();
 		generarMundo();
 		comb = new Combate();
 		comb.inicioCombate(getP1(), misEnemigos.get(0));
+	}
+
+	public void menuDeInicio() throws SQLException {
+		Usuario usuario = new Usuario();
+		usuario.inicio();
+		System.out.println("BIENVENIDO AL MUNDO DE SQUARE ENIX");
+		int opcionMenu;
+		do {
+			System.out.println("1. Empezar a jugar | 2. Ver Top 3 | 3. Ver mejor jugador");
+			opcionMenu = sc.nextInt();
+		} while (opcionMenu < 1 || opcionMenu > 3);
+
+		switch (opcionMenu) {
+		case 1:
+			start();
+			break;
+		case 2:
+			usuario.mostrarTop3();
+			break;
+
+		case 3:
+			usuario.mostrarTop1();
+			break;
+
+		default:
+			break;
+		}
 	}
 }
