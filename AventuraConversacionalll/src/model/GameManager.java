@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import dao.DaoEnemigo;
 import dao.DaoLocation;
+import dao.DaoNpc;
 import dao.DaoProtagonista;
 import model.personajes.*;
 
@@ -52,6 +53,23 @@ public class GameManager {
 	public void setMisEnemigos(ArrayList<Enemigo> misEnemigos) {
 		this.misEnemigos = misEnemigos;
 	}
+	
+	
+	public ArrayList<Npc> getMisNpcs() {
+		return misNpcs;
+	}
+
+	public void setMisNpcs(ArrayList<Npc> misNpcs) {
+		this.misNpcs = misNpcs;
+	}
+
+	public ArrayList<Location> getMisLocations() {
+		return misLocations;
+	}
+
+	public void setMisLocations(ArrayList<Location> misLocations) {
+		this.misLocations = misLocations;
+	}
 
 	// Como el personaje no se genera hasta esta elección no podemos acceder a sus
 	// atributos.
@@ -73,6 +91,8 @@ public class GameManager {
 		case 1:
 			generarProtagonista(index);
 			generarEnemigos(index);
+			generarLocations(index);
+			generarNpcs(index);			
 			break;
 			
 		}
@@ -86,10 +106,19 @@ public class GameManager {
 		setMisEnemigos(DaoEnemigo.getInstance().generarEnemigos(index));
 	}
 	
+	public void generarNpcs(int index) throws SQLException {
+		setMisNpcs(DaoNpc.getInstance().generarNpcsProtagonista(index));
+	}
+	
+	public void generarLocations(int index) throws SQLException {
+		setMisLocations(DaoLocation.getInstance().generarLocationsProtagonista(index));
+	}
+	
+	
+	
 	public void start() throws SQLException {
-		misLocations = DaoLocation.getInstance().generarLocationsProtagonista(1);
-		misLocations.get(0).imprimirFrase();
 		generarMundo();
+		misNpcs.get(0).hablar();
 		comb = new Combate();
 		comb.inicioCombate(getP1(), misEnemigos.get(0));
 	}
