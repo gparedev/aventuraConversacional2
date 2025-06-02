@@ -27,7 +27,6 @@ public class GameManager {
 	private boolean gameOver = false;
 	private int mundosCompletados;
 
-	
 	private ArrayList<Juego> misJuegos = new ArrayList<Juego>();
 
 	// Scanner
@@ -94,7 +93,7 @@ public class GameManager {
 	public void setMundosCompletados(int mundosCompletados) {
 		this.mundosCompletados = mundosCompletados;
 	}
-	
+
 	public void inicializarJuegos() {
 		misJuegos.add(new Juego1());
 		misJuegos.add(new Juego2());
@@ -156,32 +155,34 @@ public class GameManager {
 	}
 
 	public void menuDeInicio() throws SQLException {
-
-		logIn();
-		System.out.println("BIENVENIDO AL MUNDO DE SQUARE ENIX");
 		int opcionMenu;
+		logIn();
 		do {
-			System.out.println("1. Empezar a jugar | 2. Ver Top 3 | 3. Ver mejor jugador");
-			opcionMenu = sc.nextInt();
-		} while (opcionMenu < 1 || opcionMenu > 3);
+			System.out.println("BIENVENIDO AL MUNDO DE SQUARE ENIX");
+			do {
+				System.out.println("1. Empezar a jugar | 2. Ver Top 3 | 3. Ver mejor jugador");
+				opcionMenu = sc.nextInt();
+			} while (opcionMenu < 1 || opcionMenu > 3);
 
-		switch (opcionMenu) {
-		case 1:
-			start();
-			break;
-		case 2:
-			usuario.mostrarTop3();
-			menuDeInicio();
-			break;
+			switch (opcionMenu) {
+			case 1:
+				start();
+				break;
+			case 2:
+				usuario.mostrarTop3();
+				start();
+				break;
 
-		case 3:
-			usuario.mostrarTop1();
-			menuDeInicio();
-			break;
+			case 3:
+				usuario.mostrarTop1();
+				start();
+				break;
 
-		default:
-			break;
-		}
+			default:
+				break;
+			}
+		} while (opcionMenu == 2 || opcionMenu == 3);
+
 	}
 
 	public void mostrarMundos() {
@@ -210,9 +211,9 @@ public class GameManager {
 				System.out.println("Has completado 5 mundos!");
 				setGameOver(true);
 			}
-			
+
 		}
-		
+
 		System.out.println("Juego terminado máquina");
 
 	}
