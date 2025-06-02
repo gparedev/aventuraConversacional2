@@ -27,7 +27,6 @@ public class GameManager {
 	private boolean gameOver = false;
 	private int mundosCompletados;
 
-
 	
 	private ArrayList<Juego> misJuegos = new ArrayList<Juego>();
 
@@ -197,6 +196,7 @@ public class GameManager {
 	public void elegirMundo() throws SQLException {
 
 		int index = 0;
+		// Si se cumple una de estas 3 condiciones el juego termina
 		while (getP1().getVida() > 0 && !isGameOver() && getMundosCompletados() < 5) {
 			do {
 				mostrarMundos();
@@ -219,9 +219,10 @@ public class GameManager {
 
 	public void explorarMundo(int index) throws SQLException {
 		if (!misLocations.get(index).isVisited()) {
-			misLocations.get(index).imprimirFrase();
-			misLocations.get(index).setVisited(true);
-			// misjuegos.get(index).juegoStart...
+			Location localizacionActual = misLocations.get(index);
+			localizacionActual.imprimirFrase();
+			localizacionActual.setVisited(true);
+			localizacionActual.setNombre(localizacionActual.getNombre() + " (VISITADO)");
 			if (misJuegos.get(index).juegoStart(misNpcs.get(index).getNombre())) {
 				System.out.println("Ganas el juego");
 				getP1().setJuegosGanados(getP1().getJuegosGanados() + 1);
