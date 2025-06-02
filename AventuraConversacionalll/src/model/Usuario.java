@@ -45,10 +45,6 @@ public class Usuario {
 		DaoUsuario.getInstance().inicioDeSesionORegistro();
 	}
 
-	public void puntuacionJugador(String nombre) throws SQLException {
-		DaoUsuario.getInstance().puntuacionJugador(nombre);
-	}
-
 	public void mostrarTop3() throws SQLException {
 		DaoUsuario.getInstance().top3();
 	}
