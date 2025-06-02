@@ -7,26 +7,21 @@ public class DbConnection {
 
 	public static Connection instance = null;
 
+	public static final String JDB_BDD_URL = "jdbc:mysql://localhost:3306/aventura_conversacional";
+
 	public static Connection getConnection() throws SQLException {
 
-		try {
+		if (instance == null) {
 
-			if (instance == null) {
+			Properties props = new Properties();
+			// Clave - valor (El valor de user es root y de password cursoSQL...
+			// [Valor:Clave])
+			props.put("user", "root");
+			props.put("password", "cursoSQL");
 
-				String url = "jdbc:mysql://localhost:3306/aventura_conversacional";
-				String usuario = "root";
-				String contrasena = "";
-
-				instance = DriverManager.getConnection(url, usuario, contrasena);
-
-			}
-
-		} catch (SQLException e) {
-			System.out.println("No se pudo conectar a la base de datos.");
-			e.printStackTrace();
+			instance = DriverManager.getConnection(JDB_BDD_URL, props);
 		}
+
 		return instance;
-
 	}
-
 }
