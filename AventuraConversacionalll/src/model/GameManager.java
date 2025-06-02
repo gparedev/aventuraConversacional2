@@ -31,6 +31,9 @@ public class GameManager {
 
 	// Scanner
 	Scanner sc = new Scanner(System.in);
+	
+	// Constante que muestra las opciones extra que hay aparte de los mundos en la navegación
+	private final int OPCIONES_EXTRA = 2;
 
 	public GameManager() {
 
@@ -170,12 +173,10 @@ public class GameManager {
 				break;
 			case 2:
 				usuario.mostrarTop3();
-				start();
 				break;
 
 			case 3:
 				usuario.mostrarTop1();
-				start();
 				break;
 
 			default:
@@ -191,29 +192,43 @@ public class GameManager {
 		for (int i = 0; i < misLocations.size(); i++) {
 			str += (i + 1) + ".-" + misLocations.get(i).getNombre() + " ";
 		}
-		System.out.println(str);
+		System.out.print(str);
+	}
+	
+	public void mostrarOpcionesNavegacion() {
+		mostrarMundos();
+		System.out.println("6.-Tienda 7.-Estadísticas");
 	}
 
+	// Hacer cambios aqui, mostrar la opción de tienda o de estadisticas personaje
 	public void elegirMundo() throws SQLException {
 
 		int index = 0;
 		// Si se cumple una de estas 3 condiciones el juego termina
 		while (getP1().getVida() > 0 && !isGameOver() && getMundosCompletados() < 5) {
 			do {
-				mostrarMundos();
+				mostrarOpcionesNavegacion();
 				index = sc.nextInt();
 				sc.nextLine();
-			} while (index < 1 || index > misLocations.size());
-
-			if (getMundosCompletados() < 5) {
+			} while (index < 1 || index > misLocations.size() + OPCIONES_EXTRA);
+			
+			switch (index) {
+			case 1, 2, 3, 4, 5:
 				explorarMundo(index - 1);
-			} else {
-				System.out.println("Has completado 5 mundos!");
-				setGameOver(true);
+				break;
+				
+			case 6:
+				System.out.println("Visitando la tienda...");
+				break;
+				
+			case 7:
+				getP1().imprimirInfo();
+				break;
 			}
 
 		}
-
+		
+		// Logica de comprobar cuantos juegos has ganado o lo que sea y que pase A B o C
 		System.out.println("Juego terminado máquina");
 
 	}
