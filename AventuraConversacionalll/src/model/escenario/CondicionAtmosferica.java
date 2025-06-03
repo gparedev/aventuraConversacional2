@@ -1,7 +1,7 @@
 package model.escenario;
 
 public class CondicionAtmosferica {
-	
+
 	private String nombre;
 	private int penalizacionAtaque;
 

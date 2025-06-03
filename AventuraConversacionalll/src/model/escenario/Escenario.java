@@ -22,11 +22,11 @@ public class Escenario {
 		setCa(DaoCondicionAtmosferica.getInstance().obtenerAleatorio());
 		setCt(DaoCondicionTerreno.getInstance().obtenerAleatorio());
 		setMd(DaoMomentoDelDia.getInstance().obtenerAleatorio());
-		
+
 		setPenalizacionAtaque(ca.getPenalizacionAtaque() + ct.getPenalizacionAtaque());
 		setPenalizacionDefensa(ct.getPenalizacionDefensa() + md.getPenalizacionDefensa());
 		setBonusAtaque(md.getBonusAtaque());
-		
+
 	}
 
 	public Escenario(String nombre, CondicionAtmosferica ca, CondicionTerreno ct, MomentoDelDia md) {
@@ -91,20 +91,18 @@ public class Escenario {
 	public void setMd(MomentoDelDia md) {
 		this.md = md;
 	}
-	
+
 	public void imprimirCondiciones() {
-		System.out.println("Momento del dia: " + md.getNombre() + "\n"
-				+ "Condición atmosférica: " + ca.getNombre() + "\n"
-				+ "Terreno: " + ct.getNombre() + "\n");
+		System.out.println("Momento del dia: " + md.getNombre() + "\n" + "Condición atmosférica: " + ca.getNombre()
+				+ "\n" + "Terreno: " + ct.getNombre() + "\n");
 	}
-	
+
 	public void imprimirInfo() {
 		imprimirCondiciones();
-		
-		System.out.println("Nombre: " + getNombre() + "\n"
-				+ "Penalización Ataque: " + getPenalizacionAtaque() + "\n"
-				+ "Penalización Defensa: " + getPenalizacionDefensa() + "\n"
-				+ "Penalización Bonus Ataque: " + getBonusAtaque() + "\n");
+
+		System.out.println("Nombre: " + getNombre() + "\n" + "Penalización Ataque: " + getPenalizacionAtaque() + "\n"
+				+ "Penalización Defensa: " + getPenalizacionDefensa() + "\n" + "Penalización Bonus Ataque: "
+				+ getBonusAtaque() + "\n");
 	}
 
 }

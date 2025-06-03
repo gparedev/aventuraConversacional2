@@ -23,7 +23,7 @@ public class Juego1 implements Printer, Juego {
 	public void setCurrentNpc(String currentNpc) {
 		this.currentNpc = currentNpc;
 	}
-	
+
 	// FUNCIONES
 
 	public boolean juegoStart(String npc) {

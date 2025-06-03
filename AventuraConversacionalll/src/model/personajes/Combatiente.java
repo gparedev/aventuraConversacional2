@@ -267,12 +267,12 @@ public abstract class Combatiente extends Personaje {
 		case 2:
 			opcionesMochila();
 			break;
-			
+
 		case 3:
 			imprimirInfo();
 			opcionesCombate();
 			break;
-			
+
 		case 4:
 			imprimirInfoEnemigo();
 			opcionesCombate();
@@ -335,18 +335,18 @@ public abstract class Combatiente extends Personaje {
 	}
 
 	public void imprimirAtaquesYAtras() {
-	    System.out.println("===== MENÚ DE ATAQUE =====");
+		System.out.println("===== MENÚ DE ATAQUE =====");
 
-	    for (int i = 0; i < ataques.size(); i++) {
-	        Ataque ataque = ataques.get(i);
-	        System.out.println((i + 1) + ".- " + ataque.getNombre());
-	        System.out.println("    Tipo     : " + ataque.getTipo());
-	        System.out.println("    Potencia : " + ataque.getDmg());
-	        System.out.println("    Precisión: " + ataque.getPrecision() + "%");
-	        System.out.println();
-	    }
+		for (int i = 0; i < ataques.size(); i++) {
+			Ataque ataque = ataques.get(i);
+			System.out.println((i + 1) + ".- " + ataque.getNombre());
+			System.out.println("    Tipo     : " + ataque.getTipo());
+			System.out.println("    Potencia : " + ataque.getDmg());
+			System.out.println("    Precisión: " + ataque.getPrecision() + "%");
+			System.out.println();
+		}
 
-	    System.out.println((ataques.size() + 1) + ".- Atrás");
+		System.out.println((ataques.size() + 1) + ".- Atrás");
 	}
 
 	public void imprimirOpcionesMochila() {
@@ -367,23 +367,23 @@ public abstract class Combatiente extends Personaje {
 		setPocionAtaqueUsada(false);
 		setPocionVidaUsada(false);
 	}
-	
+
 	public void imprimirInfo() {
-	    System.out.println("===== ESTADO DEL PERSONAJE =====");
-	    System.out.println("Nombre           : " + getNombre());
-	    System.out.println("Vida             : " + getVida() + " / " + getVidaMax());
-	    System.out.println("Ataque           : " + getAtaque());
-	    System.out.println("Poción de Vida   : " + getPocionVida());
-	    System.out.println("Poción de Ataque : " + getPocionAtaque());
-	    System.out.println("================================");
+		System.out.println("===== ESTADO DEL PERSONAJE =====");
+		System.out.println("Nombre           : " + getNombre());
+		System.out.println("Vida             : " + getVida() + " / " + getVidaMax());
+		System.out.println("Ataque           : " + getAtaque());
+		System.out.println("Poción de Vida   : " + getPocionVida());
+		System.out.println("Poción de Ataque : " + getPocionAtaque());
+		System.out.println("================================");
 	}
-	
+
 	public void imprimirInfoEnemigo() {
-	    System.out.println("===== INFORMACIÓN DEL ENEMIGO =====");
-	    System.out.println("Nombre : " + enemigo.getNombre());
-	    System.out.println("Vida   : " + enemigo.getVida() + " / " + enemigo.getVidaMax());
-	    System.out.println("Ataque : " + enemigo.getAtaque());
-	    System.out.println("===================================");
+		System.out.println("===== INFORMACIÓN DEL ENEMIGO =====");
+		System.out.println("Nombre : " + enemigo.getNombre());
+		System.out.println("Vida   : " + enemigo.getVida() + " / " + enemigo.getVidaMax());
+		System.out.println("Ataque : " + enemigo.getAtaque());
+		System.out.println("===================================");
 	}
 
 }

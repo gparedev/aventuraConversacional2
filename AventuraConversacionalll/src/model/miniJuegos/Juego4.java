@@ -4,7 +4,7 @@ import java.util.Arrays;
 import model.Printer;
 import java.util.Scanner;
 
-public class Juego4 implements Printer , Juego{
+public class Juego4 implements Printer, Juego {
 
 	// ADIVINA LA PALABRA
 
@@ -27,7 +27,7 @@ public class Juego4 implements Printer , Juego{
 	public void setCurrentNpc(String currentNpc) {
 		this.currentNpc = currentNpc;
 	}
-	
+
 	// FUNCIONES
 
 	public boolean juegoStart(String npc) {
@@ -50,7 +50,7 @@ public class Juego4 implements Printer , Juego{
 		String text = frases[num];
 		return text;
 	}
-	
+
 	private void tramaJuego() {
 		String letra;
 		int cantidad = 1;

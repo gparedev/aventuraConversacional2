@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class DaoMiniJuego {
-	
+
 	private final Scanner sc = new Scanner(System.in);
 	private final Connection conn;
 	private static DaoMiniJuego instance;
@@ -19,8 +19,7 @@ public class DaoMiniJuego {
 		}
 		return instance;
 	}
-	
-	
+
 	public String getNombreMinijuego(int numJuego) throws SQLException {
 		String query = "SELECT nombre FROM minijuegos WHERE id_minijuego = ?";
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -35,7 +34,7 @@ public class DaoMiniJuego {
 		statement.close();
 		return nombre;
 	}
-	
+
 	public String getDescripcionMinijuego(int numJuego) throws SQLException {
 		String query = "SELECT descripcion FROM minijuegos WHERE id_minijuego = ?";
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -50,7 +49,7 @@ public class DaoMiniJuego {
 		statement.close();
 		return descripcion;
 	}
-	
+
 	public int getPuntosMinijuego(int numJuego) throws SQLException {
 		String query = "SELECT puntos FROM minijuegos WHERE id_minijuego = ?";
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -65,7 +64,7 @@ public class DaoMiniJuego {
 		statement.close();
 		return puntos;
 	}
-	
+
 	public String getDatosMinijuego(int numJuego) throws SQLException {
 		String datos = null;
 		String query = "SELECT nombre, descripcion, puntos FROM minijuegos WHERE id_minijuego = ?";
@@ -79,8 +78,9 @@ public class DaoMiniJuego {
 			nombre = rSet.getString("nombre");
 			descripcion = rSet.getString("descripcion");
 			puntos = rSet.getInt("puntos");
-			
-			datos = "Datos de juego\nNombre: " + nombre + "\nDescripción: " + descripcion + "\nPuntos por ganar: " + puntos;
+
+			datos = "Datos de juego\nNombre: " + nombre + "\nDescripción: " + descripcion + "\nPuntos por ganar: "
+					+ puntos;
 		}
 
 		rSet.close();

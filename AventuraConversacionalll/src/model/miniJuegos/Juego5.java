@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego5 implements Printer , Juego{
+public class Juego5 implements Printer, Juego {
 
 	// CARA O CRUZ
 
@@ -23,7 +23,7 @@ public class Juego5 implements Printer , Juego{
 	public void setCurrentNpc(String currentNpc) {
 		this.currentNpc = currentNpc;
 	}
-	
+
 	// FUNCIONES
 
 	public boolean juegoStart(String npc) {
@@ -81,7 +81,7 @@ public class Juego5 implements Printer , Juego{
 			this.print(this.fraseMoneda(jugadoMoneda, ladoMonedaOpt));
 
 		} while (ladoMonedaOpt < 1 || ladoMonedaOpt > 2); // Si la respuesta no es 1 o 2 la repite
-		
+
 		return ladoMonedaOpt;
 	}
 

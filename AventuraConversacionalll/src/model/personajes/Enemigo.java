@@ -3,18 +3,18 @@ package model.personajes;
 import java.util.Random;
 
 public class Enemigo extends Combatiente {
-	
+
 	private Random rand = new Random();
-	
+
 	public Enemigo(String nombre, int vidaMaxima, int ataque, int pocionVida, int pocionAtaque) {
-        super(nombre, vidaMaxima, ataque, pocionVida, pocionAtaque);
-    }
-	
-    public void imprimirInfo() {
-    	System.out.println(getNombre());
-    }
-    
-    // Por ahora solo ataca, podemos poner que si tiene poca vida se cure...
+		super(nombre, vidaMaxima, ataque, pocionVida, pocionAtaque);
+	}
+
+	public void imprimirInfo() {
+		System.out.println(getNombre());
+	}
+
+	// Por ahora solo ataca, podemos poner que si tiene poca vida se cure...
 	@Override
 	public void turno() {
 		if (getVida() > 0) {

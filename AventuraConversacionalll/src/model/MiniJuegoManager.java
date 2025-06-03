@@ -5,7 +5,7 @@ import java.sql.*;
 import dao.DaoMiniJuego;
 import model.miniJuegos.*;
 
-public class MiniJuegoManager implements Printer{
+public class MiniJuegoManager implements Printer {
 	// ATRIBUTOS
 
 	private int numJuego = 0;
@@ -24,22 +24,22 @@ public class MiniJuegoManager implements Printer{
 	public void getNombre() throws SQLException {
 		nombre = DaoMiniJuego.getInstance().getNombreMinijuego(numJuego);
 	}
-	
+
 	public void getDescripcion() throws SQLException {
 		descripcion = DaoMiniJuego.getInstance().getDescripcionMinijuego(numJuego);
 	}
-	
+
 	public void getPuntos() throws SQLException {
 		puntos = DaoMiniJuego.getInstance().getPuntosMinijuego(numJuego);
 	}
-	
+
 	public void getDatos() throws SQLException {
 		datos = DaoMiniJuego.getInstance().getDatosMinijuego(numJuego);
 	}
 
 	// FUNCIONES
 
-	public void start(String npc) throws SQLException{
+	public void start(String npc) throws SQLException {
 		if (numJuego == 0) {
 			numJuego = (int) (Math.random() * 5 + 1);
 		} else {
@@ -79,7 +79,7 @@ public class MiniJuegoManager implements Printer{
 		}
 		return gameWin;
 	}
-	
+
 	private void imprimirDatos() throws SQLException {
 		this.getDatos();
 		this.print(datos);

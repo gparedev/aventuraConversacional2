@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego3 implements Printer , Juego{
+public class Juego3 implements Printer, Juego {
 
 	// PARES O NONES
 
@@ -35,8 +35,6 @@ public class Juego3 implements Printer , Juego{
 		gameWin = this.finalJuego();
 		return gameWin;
 	}
-
-	
 
 	private String frase(int num) {
 		String[] frases = { "\n" + currentNpc + ": Has ganado, maquinita\nHas ganado 20 monedas",
