@@ -15,8 +15,11 @@ import model.miniJuegos.Juego3;
 import model.miniJuegos.Juego4;
 import model.miniJuegos.Juego5;
 import model.personajes.*;
+import model.Usuario;
 
 public class GameManager {
+	
+	private String nombre_usuario;
 
 	private Protagonista p1;
 	private ArrayList<Enemigo> misEnemigos;
@@ -40,6 +43,14 @@ public class GameManager {
 	}
 
 	// Getters & Setters
+	
+	public String getNombre_usuario() {
+		return nombre_usuario;
+	}
+
+	public void setNombre_usuario(String nombre_usuario) {
+		this.nombre_usuario = nombre_usuario;
+	}	
 
 	public Protagonista getP1() {
 		return p1;
@@ -235,10 +246,16 @@ public class GameManager {
 			System.out.println("Has ganado: " + getP1().getJuegosGanados() + "/5 juegos");
 			
 			if (getP1().getJuegosGanados() < 3) {
+				System.out.println("Se te sumarán 10 puntos, lo has hecho bien");
+				usuario.agregarPuntuacion(10, nombre_usuario);
 				System.out.println("Final malo");
 			} else if (getP1().getJuegosGanados() < 5) {
+				System.out.println("Se te sumarán 20 puntos, lo has hecho perfecto");
+				usuario.agregarPuntuacion(20, nombre_usuario);
 				System.out.println("Final normal");
 			} else {
+				System.out.println("Se te sumarán 30 puntos, lo has hecho increíble");
+				usuario.agregarPuntuacion(30, nombre_usuario);
 				System.out.println("Final bueno");
 			}
 		} else {
