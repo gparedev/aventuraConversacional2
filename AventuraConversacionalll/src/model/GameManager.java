@@ -148,7 +148,8 @@ public class GameManager {
 
 	public void start() throws SQLException {
 		generarMundo();
-		elegirMundo();
+		elegirItemInicial();
+		flujoJuego();
 	}
 
 	public void logIn() throws SQLException {
@@ -201,7 +202,7 @@ public class GameManager {
 	}
 
 	// Hacer cambios aqui, mostrar la opción de tienda o de estadisticas personaje
-	public void elegirMundo() throws SQLException {
+	public void flujoJuego() throws SQLException {
 
 		int index = 0;
 		// Si se cumple una de estas 3 condiciones el juego termina
@@ -278,4 +279,39 @@ public class GameManager {
 			System.out.println("Ya has completado este mundo, tontito.");
 		}
 	}
+	
+	// Lo suyo sería hacer una tabla en la BDD de Abalorios y hacer el mismo proceso que hemos hecho
+	// con ataques, localizaciones, entornos, personajes, enemigos...
+	public void elegirItemInicial() {
+		int index = 0;
+		do {
+			System.out.println("Bienvenido, " + getP1().getNombre() + " antes de comenzar tu aventura elige entre uno de los siguientes objetos:");
+			System.out.println("1.-Espada 2.-Escudo 3.-Baston");
+			index = sc.nextInt();
+		} while (index < 1 || index > 3);
+		
+		 switch (index) {
+		 case 1:
+			 System.out.println("Seleccionas la espada que incrementa tu fuerza");
+			 getP1().setAtaque(getP1().getAtaque() + 10);
+			 getP1().setAtaqueIni(getP1().getAtaqueIni() + 10);
+			 break;
+			 
+		 case 2:
+			 System.out.println("Seleccionas el escudo que incrementa tu defensa");
+			 getP1().setDefensa(getP1().getDefensa() + 10);
+			 getP1().setDefensaIni(getP1().getDefensaIni() + 10);
+			 break;
+			 
+		 case 3:
+			 System.out.println("Seleccionas el bastón lo que te llena de sabiduría");
+			 getP1().setAtaque(getP1().getAtaque() + 5);
+			 getP1().setAtaqueIni(getP1().getAtaqueIni() + 5);
+			 
+			 getP1().setDefensa(getP1().getDefensa() + 5);
+			 getP1().setDefensaIni(getP1().getDefensaIni() + 5);
+		 }
+
+	}
+	
 }
