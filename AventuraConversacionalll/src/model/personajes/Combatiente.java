@@ -217,7 +217,7 @@ public abstract class Combatiente extends Personaje {
 						+ enemigo.getNombre() + ".");
 
 			} else {
-				System.out.println(getNombre() + "usó  " + ataque.getNombre() + " pero falla el ataque, torpe.");
+				System.out.println(getNombre() + " usó  " + ataque.getNombre() + " pero falla el ataque, torpe.");
 			}
 
 			enemy.setVida(enemy.getVida() - dmg);
