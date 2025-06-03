@@ -35,11 +35,8 @@ public class Dibujo {
 				+ "      ███    ██  ██   ██   ██   ██    ███ ██      ██  ██    ██   ██             ██        ██     ███   ██  ██    ██       "
 				+ "        ██████   ████████████    ██████   ██       ██ ██     ██  ████████       ████████  ██     ███   ██ ██      ██      "
 				+ "                      ██                                                                                                  "
-				+ "\n\n          Grupo 14"
-				+ "\n          Integrantes:"
-				+ "\n          Gustavo Paredes"
-				+ "\n          Luis Rodriguez"
-				+ "\n          Alejandro del Blanco";
+				+ "\n\n          Grupo 14" + "\n          Integrantes:" + "\n          Gustavo Paredes"
+				+ "\n          Luis Rodriguez" + "\n          Alejandro del Blanco";
 		return dibujo;
 	}
 

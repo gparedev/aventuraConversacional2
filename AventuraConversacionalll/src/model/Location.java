@@ -30,7 +30,7 @@ public class Location {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public boolean isVisited() {
 		return visited;
 	}
@@ -42,7 +42,5 @@ public class Location {
 	public void imprimirFrase() {
 		System.out.println("Coges la nave gumi y aterrizas en " + getNombre() + " " + getDescripcion());
 	}
-	
-	
 
 }

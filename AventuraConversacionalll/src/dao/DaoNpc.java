@@ -40,8 +40,7 @@ public class DaoNpc {
 		// Mientras haya registros...
 		while (resultData.next()) {
 			// Relleno los ataques por iteración
-			npcs.add(new Npc(resultData.getString("nombre"),
-					resultData.getString("frase")));
+			npcs.add(new Npc(resultData.getString("nombre"), resultData.getString("frase")));
 		}
 
 		stmntSelect.close();

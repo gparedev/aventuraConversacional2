@@ -3,7 +3,7 @@ package model.miniJuegos;
 import java.util.Scanner;
 import model.Printer;
 
-public class Juego2 implements Printer , Juego {
+public class Juego2 implements Printer, Juego {
 
 	// PREGUNTAS
 
@@ -28,7 +28,7 @@ public class Juego2 implements Printer , Juego {
 	public void setCurrentNpc(String currentNpc) {
 		this.currentNpc = currentNpc;
 	}
-	
+
 	// FUNCIONES
 
 	public boolean juegoStart(String npc) {
@@ -149,7 +149,7 @@ public class Juego2 implements Printer , Juego {
 			}
 		}
 	}
-	
+
 	private void comprobarRespuesta(String answer, String palabra) {
 		if (answer.equals(palabra)) {
 			this.print(this.frase(3));

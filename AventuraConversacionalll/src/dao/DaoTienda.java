@@ -80,6 +80,4 @@ public class DaoTienda {
 		statement.close();
 	}
 
-	
-
 }

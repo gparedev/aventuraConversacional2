@@ -33,7 +33,7 @@ public class Combate {
 		this.enemigo = enemigo;
 	}
 
-	// Paso necesario en el que se le asigna un enemigo a cada combatiente, 
+	// Paso necesario en el que se le asigna un enemigo a cada combatiente,
 	// Si no hacemos esto el jugador o el enemigo atacaria a objetos nulos
 	private void asignarCombatientes(Combatiente jugador, Combatiente enemigo) {
 		setJugador(jugador);
@@ -56,15 +56,13 @@ public class Combate {
 	private void setEscenario(Escenario escenario) {
 		this.escenario = escenario;
 	}
-	
+
 	private void modificarStatsPorEscenario() {
 		// Modificación stats Jugador
-		getJugador().setAtaque(jugador.getAtaqueIni() +
-				escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
+		getJugador().setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
 		getJugador().setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
 		// Modificación stats Enemigo
-		getEnemigo().setAtaque(jugador.getAtaqueIni() +
-				escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
+		getEnemigo().setAtaque(jugador.getAtaqueIni() + escenario.getBonusAtaque() - escenario.getPenalizacionAtaque());
 		getEnemigo().setDefensa(jugador.getDefensa() + escenario.getPenalizacionDefensa());
 	}
 
@@ -72,11 +70,11 @@ public class Combate {
 
 		asignarCombatientes(jugador, enemigo);
 
-		System.out.println("Comienza el combate entre " + getJugador().getNombre() +
-				" y " + getEnemigo().getNombre() + "\n");
+		System.out.println(
+				"Comienza el combate entre " + getJugador().getNombre() + " y " + getEnemigo().getNombre() + "\n");
 
 		setEscenario(new Escenario("Escenario aleatorio"));
-		
+
 		// Aqui podemos cambiar el nombre del escenario
 		escenario.setNombre("Escenario de " + getEnemigo().getNombre());
 		escenario.imprimirInfo();
@@ -85,9 +83,8 @@ public class Combate {
 
 		modificarStatsPorEscenario();
 
-
 		while (getJugador().getVida() > 0 && getEnemigo().getVida() > 0) {
-			if (empiezaProta) {			
+			if (empiezaProta) {
 				getJugador().turno();
 				getEnemigo().turno();
 			} else {

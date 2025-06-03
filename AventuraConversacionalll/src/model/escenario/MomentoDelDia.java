@@ -1,29 +1,29 @@
 package model.escenario;
 
 public class MomentoDelDia {
-    private String nombre;
-    private int penalizacionDefensa;
-    private int bonusAtaque;
-    
-    public MomentoDelDia() {
-    	
-    }
+	private String nombre;
+	private int penalizacionDefensa;
+	private int bonusAtaque;
 
-    public MomentoDelDia(String nombre, int penalizacionDefensa, int bonusAtaque) {
-        this.nombre = nombre;
-        this.penalizacionDefensa = penalizacionDefensa;
-        this.bonusAtaque = bonusAtaque;
-    }
+	public MomentoDelDia() {
 
-    public String getNombre() {
-        return nombre;
-    }
+	}
 
-    public int getPenalizacionDefensa() {
-        return penalizacionDefensa;
-    }
+	public MomentoDelDia(String nombre, int penalizacionDefensa, int bonusAtaque) {
+		this.nombre = nombre;
+		this.penalizacionDefensa = penalizacionDefensa;
+		this.bonusAtaque = bonusAtaque;
+	}
 
-    public int getBonusAtaque() {
-        return bonusAtaque;
-    }
+	public String getNombre() {
+		return nombre;
+	}
+
+	public int getPenalizacionDefensa() {
+		return penalizacionDefensa;
+	}
+
+	public int getBonusAtaque() {
+		return bonusAtaque;
+	}
 }
