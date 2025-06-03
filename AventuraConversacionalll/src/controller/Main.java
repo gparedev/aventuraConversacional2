@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import dao.DaoEnemigo;
 import dao.DaoProtagonista;
+import dao.DaoTienda;
 import model.GameManager;
+import model.Tienda;
 import model.escenario.Escenario;
 import model.personajes.*;
 
