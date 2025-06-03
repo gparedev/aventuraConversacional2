@@ -5,9 +5,11 @@ public class Protagonista extends Combatiente {
 	// Atributos propios como abalorios u otras cosas
 	private int monedas;
 	private int juegosGanados;
+	private final int TOTAL_MINIJUEGOS = 5;
 	
     public Protagonista(String nombre, int vidaMaxima, int ataque, int pocionVida, int pocionAtaque) {
         super(nombre, vidaMaxima, ataque, pocionVida, pocionAtaque);
+        monedas = 50;
     }
     
     // Getters & Setters
@@ -38,7 +40,7 @@ public class Protagonista extends Combatiente {
 	    System.out.println("Poción de Vida   : " + getPocionVida());
 	    System.out.println("Poción de Ataque : " + getPocionAtaque());
 	    System.out.println("Monedas          : " + getMonedas());
-	    System.out.println("Juegos Ganados   : " + getJuegosGanados());
+	    System.out.println("Juegos Ganados   : " + getJuegosGanados() + "/" + TOTAL_MINIJUEGOS);
 	    System.out.println("================================");
 	}
 

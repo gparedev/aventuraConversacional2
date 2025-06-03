@@ -228,7 +228,22 @@ public class GameManager {
 
 		}
 		
-		// Logica de comprobar cuantos juegos has ganado o lo que sea y que pase A B o C
+		if (getP1().getVida() > 0) {
+			
+			// Logica de comprobar cuantos juegos has ganado o lo que sea y que pase A B o C
+			System.out.println("Has ganado: " + getP1().getJuegosGanados() + "/5 juegos");
+			
+			if (getP1().getJuegosGanados() < 3) {
+				System.out.println("Final malo");
+			} else if (getP1().getJuegosGanados() < 5) {
+				System.out.println("Final normal");
+			} else {
+				System.out.println("Final bueno");
+			}
+		} else {
+			System.out.println("Te has muerto, campeón");
+		}
+		
 		System.out.println("Juego terminado máquina");
 
 	}
@@ -239,15 +254,26 @@ public class GameManager {
 			localizacionActual.imprimirFrase();
 			localizacionActual.setVisited(true);
 			localizacionActual.setNombre(localizacionActual.getNombre() + " (VISITADO)");
+			
+			// Se comprueba si se ha ganado el juego o no.
 			if (misJuegos.get(index).juegoStart(misNpcs.get(index).getNombre())) {
 				System.out.println("Ganas el juego");
+				getP1().setMonedas(getP1().getMonedas() + 20);
 				getP1().setJuegosGanados(getP1().getJuegosGanados() + 1);
 			} else {
 				System.out.println("Has peridido, tontito.");
 			}
 
 			comb.inicioCombate(getP1(), getMisEnemigos().get(index));
-			setMundosCompletados(getMundosCompletados() + 1);
+			
+			// Si ganas el combate...
+			if (getP1().getVida() > 0) {
+				System.out.println("Saqueas el cadaver de " + misEnemigos.get(index).getNombre()
+						+ " y encuentras 20 monedas!");
+				getP1().setMonedas(getP1().getMonedas() + 20);
+				setMundosCompletados(getMundosCompletados() + 1);
+			}
+			
 		} else {
 			System.out.println("Ya has completado este mundo, tontito.");
 		}

@@ -150,6 +150,7 @@ public abstract class Combatiente extends Personaje {
 			}
 
 			setPocionVidaUsada(true);
+			setPocionVida(getPocionVida() - 1);
 
 			imprimirCura(valorCura);
 		} else {
@@ -163,6 +164,7 @@ public abstract class Combatiente extends Personaje {
 			setAtaque(getAtaque() + VALOR_POCIONES);
 			imprimirPocionAtaque();
 			setPocionAtaqueUsada(true);
+			setPocionAtaque(getPocionAtaque() - 1);
 		} else {
 			imprimirErrorPocionAtaque();
 		}
