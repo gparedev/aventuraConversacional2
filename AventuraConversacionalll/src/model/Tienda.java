@@ -145,6 +145,7 @@
 				case 1:
 					if (!comprado1) {
 						System.out.println("Has comprado " + nombre1 + " por " + precio1 + " monedas");
+						System.out.println("Tu ataque mejorará");
 						protagonista.setAtaque(protagonista.getAtaque() + mejora1);
 						protagonista.setAtaqueIni(protagonista.getAtaque() + mejora1);
 						setNombre1(nombre1 + " (comprado");
@@ -156,8 +157,9 @@
 				case 2:
 					if (!comprado2) {
 						System.out.println("Has comprado " + nombre2 + " por " + precio2 + " monedas");
-						protagonista.setAtaque(protagonista.getAtaque() + mejora2);
-						protagonista.setAtaqueIni(protagonista.getAtaque() + mejora2);
+						System.out.println("Tu defensa mejorará");
+						protagonista.setDefensa(protagonista.getDefensa() + mejora2);
+						protagonista.setDefensaIni(protagonista.getDefensa() + mejora2);
 						setNombre2(nombre2 + " (comprado)");
 					} else {
 						System.out.println("Ya has comprado este artículo");
@@ -167,8 +169,9 @@
 				case 3:
 					if (!comprado3) {
 						System.out.println("Has comprado " + nombre3 + " por " + precio3 + " monedas");
-						protagonista.setAtaque(protagonista.getAtaque() + mejora3);
-						protagonista.setAtaqueIni(protagonista.getAtaque() + mejora3);
+						System.out.println("Tu defensa mejorará");
+						protagonista.setDefensa(protagonista.getDefensa() + mejora3);
+						protagonista.setDefensaIni(protagonista.getDefensa() + mejora3);
 						setNombre3(nombre3 + " (comprado)");
 					} else {
 						System.out.println("Ya has comprado este artículo");
