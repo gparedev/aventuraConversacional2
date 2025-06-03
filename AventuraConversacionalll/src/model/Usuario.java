@@ -48,9 +48,13 @@ public class Usuario {
 	public void mostrarTop3() throws SQLException {
 		DaoUsuario.getInstance().top3();
 	}
-	
+
 	public void mostrarTop1() throws SQLException {
 		DaoUsuario.getInstance().top1();
+	}
+
+	public void agregarPuntuacion(int puntuacionIn, String nombreIn) throws SQLException {
+		DaoUsuario.getInstance().agregarPuntuacion(puntuacionIn, nombreIn);
 	}
 
 }

@@ -3,6 +3,8 @@ package dao;
 import java.sql.*;
 import java.util.Scanner;
 
+import model.GameManager;
+
 public class DaoUsuario {
 
 	private final Scanner sc = new Scanner(System.in);
@@ -22,13 +24,16 @@ public class DaoUsuario {
 
 	// login o registro
 	public void inicioDeSesionORegistro() throws SQLException {
+		GameManager gm = new GameManager();
 		System.out.println("Introduce tu nombre de usuario:");
 		String nombre = sc.nextLine().trim(); // trim() borra espacios de inicio y final del string
 		if (!nombreDisponible(nombre)) {
 			// el usuario existe, hacer login
+			gm.setNombre_usuario(nombre);
 			login(nombre);
 		} else {
 			// el usuario no existe, crear cuenta
+			gm.setNombre_usuario(nombre);
 			System.out.println("Usuario no encontrado.");
 			String contrasena = crearContrasena();
 			registro(nombre, contrasena);
@@ -166,6 +171,25 @@ public class DaoUsuario {
 
 		rSet.close();
 		statement.close();
+	}
+
+	// sumar puntuación a usuario
+	public void agregarPuntuacion(int puntuacionIn, String nombreIn) throws SQLException {
+		String updateSql = "UPDATE usuario SET puntuacion_total_usuario=? WHERE nombre_usuario=?";
+		PreparedStatement statementUpdate = conn.prepareStatement(updateSql);
+
+		statementUpdate.setInt(1, puntuacionIn);
+		statementUpdate.setString(2, nombreIn);
+
+		int regsUpdated = statementUpdate.executeUpdate();
+		if (regsUpdated > 0) {
+			System.out.println(
+					"Se han agregado " + puntuacionIn + " puntos a " + nombreIn + " en la clasificación global");
+		} else {
+			System.out.println("No se ha agregado puntuación");
+		}
+
+		statementUpdate.close();
 	}
 
 }
