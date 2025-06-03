@@ -8,6 +8,7 @@ import dao.DaoEnemigo;
 import dao.DaoLocation;
 import dao.DaoNpc;
 import dao.DaoProtagonista;
+import dao.DaoTienda;
 import model.miniJuegos.Juego;
 import model.miniJuegos.Juego1;
 import model.miniJuegos.Juego2;
@@ -26,6 +27,7 @@ public class GameManager {
 	private Usuario usuario;
 	private boolean gameOver = false;
 	private int mundosCompletados;
+	private Tienda miTienda;
 
 	private ArrayList<Juego> misJuegos = new ArrayList<Juego>();
 
@@ -97,6 +99,14 @@ public class GameManager {
 		this.mundosCompletados = mundosCompletados;
 	}
 
+	public Tienda getMiTienda() {
+		return miTienda;
+	}
+
+	public void setMiTienda(Tienda miTienda) {
+		this.miTienda = miTienda;
+	}
+
 	public void inicializarJuegos() {
 		misJuegos.add(new Juego1());
 		misJuegos.add(new Juego2());
@@ -126,12 +136,18 @@ public class GameManager {
 		generarEnemigos(index);
 		generarLocations(index);
 		generarNpcs(index);
+		generarTienda(index);
 		inicializarJuegos();
 
 	}
 
 	public void generarProtagonista(int index) throws SQLException {
 		setP1(DaoProtagonista.getInstance().generarProtagonista(index));
+	}
+	
+	public void generarTienda(int index) throws SQLException {
+		setMiTienda(DaoTienda.getInstance().obtenerTienda(index));
+		miTienda.setProtagonista(getP1());
 	}
 
 	public void generarEnemigos(int index) throws SQLException {
@@ -220,6 +236,7 @@ public class GameManager {
 				
 			case 6:
 				System.out.println("Visitando la tienda...");
+				getMiTienda().tienda();
 				break;
 				
 			case 7:
