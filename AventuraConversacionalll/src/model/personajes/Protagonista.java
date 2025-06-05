@@ -36,6 +36,7 @@ public class Protagonista extends Combatiente {
 		System.out.println("Nombre           : " + getNombre());
 		System.out.println("Vida             : " + getVida() + " / " + getVidaMax());
 		System.out.println("Ataque           : " + getAtaque());
+		System.out.println("Defensa          : " + getDefensa());
 		System.out.println("Poción de Vida   : " + getPocionVida());
 		System.out.println("Poción de Ataque : " + getPocionAtaque());
 		System.out.println("Monedas          : " + getMonedas());
