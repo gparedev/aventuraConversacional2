@@ -38,7 +38,7 @@ public class DaoUsuario {
 			String contrasena = crearContrasena();
 			registro(nombre, contrasena);
 		}
-		
+
 		return nombre;
 	}
 
@@ -183,15 +183,39 @@ public class DaoUsuario {
 		statementUpdate.setInt(1, puntuacionIn);
 		statementUpdate.setString(2, nombreIn);
 
-		int regsUpdated = statementUpdate.executeUpdate();
-		if (regsUpdated > 0) {
-			System.out.println(
-					"Se han agregado " + puntuacionIn + " puntos a " + nombreIn + " en la clasificación global");
+		int puntuacionAnterior = 0;
+
+		puntuacionAnterior = comprobarPuntuacionMayor(puntuacionIn, nombreIn);
+
+		if (puntuacionIn > puntuacionAnterior) {
+			int regsUpdated = statementUpdate.executeUpdate();
+			if (regsUpdated > 0) {
+				System.out.println(
+						"Se han agregado " + puntuacionIn + " puntos a " + nombreIn + " en la clasificación global");
+			}
 		} else {
-			System.out.println("No se ha agregado puntuación");
+			System.out.println("No se ha agregado puntuación porque este usuario ya tenía una puntuación mayor");
 		}
 
 		statementUpdate.close();
+	}
+
+	public int comprobarPuntuacionMayor(int puntuacionIn, String nombreIn) throws SQLException {
+		String query = "SELECT nombre_usuario, puntuacion_total_usuario FROM usuario WHERE nombre_usuario = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		statement.setString(1, nombreIn);
+		ResultSet rSet = statement.executeQuery();
+
+		int puntuacionAnterior = 0;
+
+		while (rSet.next()) {
+			puntuacionAnterior = rSet.getInt("puntuacion_total_usuario");
+		}
+
+		rSet.close();
+		statement.close();
+
+		return puntuacionAnterior;
 	}
 
 }

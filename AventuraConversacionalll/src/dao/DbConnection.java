@@ -17,7 +17,7 @@ public class DbConnection {
 			// Clave - valor (El valor de user es root y de password cursoSQL...
 			// [Valor:Clave])
 			props.put("user", "root");
-			props.put("password", "cursoSQL");
+			props.put("password", "");
 
 			instance = DriverManager.getConnection(JDB_BDD_URL, props);
 		}
