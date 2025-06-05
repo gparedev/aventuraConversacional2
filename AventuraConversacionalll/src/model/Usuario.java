@@ -7,7 +7,7 @@ public class Usuario {
 
 	private String nombre;
 	private String contrasena;
-	private String puntuacion;
+	private int puntuacion;
 
 	public Usuario() {
 	}
@@ -29,11 +29,11 @@ public class Usuario {
 		return contrasena;
 	}
 
-	public String getPuntuacion() {
+	public int getPuntuacion() {
 		return puntuacion;
 	}
 
-	public void setPuntuacion(String puntuacion) {
+	public void setPuntuacion(int puntuacion) {
 		this.puntuacion = puntuacion;
 	}
 
@@ -41,8 +41,11 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public void inicio() throws SQLException {
-		DaoUsuario.getInstance().inicioDeSesionORegistro();
+	public String inicio() throws SQLException {
+		String nombre = "";
+		nombre = DaoUsuario.getInstance().inicioDeSesionORegistro();
+		return nombre;
+		
 	}
 
 	public void mostrarTop3() throws SQLException {

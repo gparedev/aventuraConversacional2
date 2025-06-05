@@ -23,7 +23,7 @@ public class DaoUsuario {
 	}
 
 	// login o registro
-	public void inicioDeSesionORegistro() throws SQLException {
+	public String inicioDeSesionORegistro() throws SQLException {
 		GameManager gm = new GameManager();
 		System.out.println("Introduce tu nombre de usuario:");
 		String nombre = sc.nextLine().trim(); // trim() borra espacios de inicio y final del string
@@ -38,6 +38,8 @@ public class DaoUsuario {
 			String contrasena = crearContrasena();
 			registro(nombre, contrasena);
 		}
+		
+		return nombre;
 	}
 
 	// comprobar si nombre de usuario está disponible
