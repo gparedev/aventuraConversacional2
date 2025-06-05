@@ -264,16 +264,10 @@ public class GameManager {
 			System.out.println("Has ganado: " + getP1().getJuegosGanados() + "/5 juegos");
 
 			if (getP1().getJuegosGanados() < 3) {
-				System.out.println("Se te sumarán 10 puntos, lo has hecho bien");
-				usuario.agregarPuntuacion(10, nombre_usuario);
 				System.out.println("Final malo");
 			} else if (getP1().getJuegosGanados() < 5) {
-				System.out.println("Se te sumarán 20 puntos, lo has hecho perfecto");
-				usuario.agregarPuntuacion(20, nombre_usuario);
 				System.out.println("Final normal");
 			} else {
-				System.out.println("Se te sumarán 30 puntos, lo has hecho increíble");
-				usuario.agregarPuntuacion(30, nombre_usuario);
 				System.out.println("Final bueno");
 			}
 		} else {
@@ -293,7 +287,8 @@ public class GameManager {
 
 			// Se comprueba si se ha ganado el juego o no.
 			if (misJuegos.get(index).juegoStart(misNpcs.get(index).getNombre())) {
-				System.out.println("Ganas el juego");
+				System.out.println("Ganas el juego, ganas 10 puntos en la clasificación");
+				usuario.agregarPuntuacion(50, nombre_usuario);
 				getP1().setMonedas(getP1().getMonedas() + 20);
 				getP1().setJuegosGanados(getP1().getJuegosGanados() + 1);
 			} else {
@@ -306,6 +301,8 @@ public class GameManager {
 			if (getP1().getVida() > 0) {
 				System.out.println(
 						"Saqueas el cadaver de " + misEnemigos.get(index).getNombre() + " y encuentras 20 monedas!");
+				System.out.println("Sumas 10 puntos en la clasificación");
+				usuario.agregarPuntuacion(50, nombre_usuario);
 				getP1().setMonedas(getP1().getMonedas() + 20);
 				setMundosCompletados(getMundosCompletados() + 1);
 			}
