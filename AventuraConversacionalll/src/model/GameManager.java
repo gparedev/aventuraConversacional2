@@ -266,10 +266,13 @@
 	
 				if (getP1().getJuegosGanados() < 3) {
 					System.out.println("Final malo");
+					comb.inicioCombate(getP1(), getMisEnemigos().get(5));
 				} else if (getP1().getJuegosGanados() < 5) {
 					System.out.println("Final normal");
+					comb.inicioCombate(getP1(), getMisEnemigos().get(6));
 				} else {
 					System.out.println("Final bueno");
+					comb.inicioCombate(getP1(), getMisEnemigos().get(7));
 				}
 			} else {
 				System.out.println("Te has muerto, campeón");
